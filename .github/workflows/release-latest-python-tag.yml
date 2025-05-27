@@ -1,0 +1,65 @@
+name: Release Latest Python Tag
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-latest-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      latest_tag: ${{ steps.get_tag.outputs.latest_tag }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install Python dependencies
+        run: |
+          pip install -r .github/scripts/requirements.txt
+      - name: Get latest stable Python version from manifest
+        id: get_tag
+        run: |
+          latest_tag=$(python .github/scripts/get_python_version.py --latest --stable)
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+
+  build-and-release-matrix:
+    needs: get-latest-tag
+    strategy:
+      matrix:
+        platform-version: ['24.04']
+        arch: [ppc64le]
+        runner-label: [ubuntu-24.04-ppc64le]
+    uses: ./.github/workflows/reusable-build-and-release-python-versions.yml
+    with:
+      arch: ${{ matrix.arch }}
+      tag: ${{ needs.get-latest-tag.outputs.latest_tag }}
+      platform-version: ${{ matrix.platform-version }}
+      runner-label: ${{ matrix.runner-label }}
+
+  release-asset:
+    needs: [build-and-release-matrix, get-latest-tag]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download tar artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: python-tar
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ needs.get-latest-tag.outputs.latest_tag }}
+          release_name: Release ${{ needs.get-latest-tag.outputs.latest_tag }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./python-${{ needs.get-latest-tag.outputs.latest_tag }}.tar.gz
+          asset_name: python-${{ needs.get-latest-tag.outputs.latest_tag }}.tar.gz
+          asset_content_type: application/gzip
