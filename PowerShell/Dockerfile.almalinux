@@ -1,0 +1,77 @@
+FROM    almalinux:8 AS build
+
+ARG     PWSH_VER=v7.5.0 PNAT_VER=v7.4.0
+
+RUN     dnf upgrade -y -q && \
+        dnf install dotnet cmake make git libicu gcc gcc-c++ patch -y -q
+
+RUN     cd /usr/lib64/dotnet/packs && \
+        ln -s Microsoft.AspNetCore.App.Runtime.almalinux.8-s390x Microsoft.AspNetCore.App.Runtime.linux-s390x && \
+        ln -s Microsoft.NETCore.App.Host.almalinux.8-s390x Microsoft.NETCore.App.Host.linux-s390x && \
+        ln -s Microsoft.NETCore.App.Runtime.almalinux.8-s390x Microsoft.NETCore.App.Runtime.linux-s390x && \
+        cd Microsoft.NETCore.App.Host.linux-s390x/9.0.4/runtimes && \
+        ln -s almalinux.8-s390x linux-s390x
+
+COPY    patch/powershell-native.patch /tmp 
+
+COPY    patch/powershell-s390x.patch /tmp 
+
+COPY    patch/powershell-gen.tar.gz /tmp
+
+WORKDIR /root
+
+RUN     git clone https://github.com/PowerShell/PowerShell-Native.git && \
+        cd PowerShell-Native && \
+        git checkout tags/${PNAT_VER} -b s390x && \
+        git apply /tmp/powershell-native.patch && \
+        git submodule init && \
+        git submodule update && \
+        cd src/libpsl-native/ && \
+        cmake -DCMAKE_BUILD_TYPE=Debug . && \
+        make && \
+        make test || cat Testing/Temporary/LastTest.log && \
+        cp ../powershell-unix/libpsl-native.so /usr/lib64/.
+
+RUN     git clone https://github.com/PowerShell/PowerShell.git && \
+        cd PowerShell && \
+        git checkout tags/${PWSH_VER} -b s390x && \
+        git apply /tmp/powershell-s390x.patch && \
+        tar -xzf /tmp/powershell-gen.tar.gz && \
+        dotnet build --self-contained
+
+RUN     mkdir -p /usr/local/pwsh && \
+        cd PowerShell/src/powershell-unix/bin/Debug/net9.0/linux-s390x && \
+        tar -cf - . | tar -xf - -C /usr/local/pwsh
+
+ADD     build.sh /tmp
+
+ENV     PATH=${PATH}:/usr/local/pwsh
+
+RUN     rm -rf PowerShell && \
+        git clone https://github.com/PowerShell/PowerShell.git && \
+        cd PowerShell && \
+        git checkout tags/${PWSH_VER} -b s390x && \
+        git apply /tmp/powershell-s390x.patch && \
+        /tmp/build.sh
+
+RUN     rm -rf /usr/local/pwsh/* && \
+        cd PowerShell/src/powershell-unix/bin/Debug/net9.0/linux-s390x && \
+        tar -cf - . | tar -xf - -C /usr/local/pwsh
+
+FROM    almalinux:8
+
+RUN     dnf upgrade -y -q && \
+        dnf install dotnet -y -q
+
+COPY    --from=build /usr/lib64/libpsl-native.so /usr/lib64/.
+
+COPY    --from=build /usr/local/pwsh /usr/local/pwsh
+
+ENV     PATH=${PATH}:/usr/local/pwsh
+
+RUN     rm -rf /tmp/* && \
+        dnf autoremove && \
+        dnf clean all && \
+        rm -rf /var/cache/dnf/*
+
+CMD     /bin/bash
