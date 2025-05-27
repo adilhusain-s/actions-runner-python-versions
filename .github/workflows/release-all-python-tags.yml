@@ -1,0 +1,42 @@
+name: Release All Python Tags
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-all-tags:
+    runs-on: ubuntu-latest
+    outputs:
+      tags: ${{ steps.tags.outputs.tags }}
+    steps:
+      - name: Fetch all tags from actions/python-versions
+        id: tags
+        run: |
+          tags=$(curl -s "https://api.github.com/repos/actions/python-versions/tags?per_page=1000" | jq -r '.[].name' | jq -R -s -c 'split("\n")[:-1]')
+          echo "tags=$tags" >> $GITHUB_OUTPUT
+
+  release-all-tags-s390x:
+    needs: get-all-tags
+    strategy:
+      matrix:
+        tag: ${{ fromJson(needs.get-all-tags.outputs.tags) }}
+    uses: ./.github/workflows/reusable-build-and-release-python-versions.yml
+    with:
+      upstream_repo: actions/python-versions
+      make_target: ''
+      tarball_pattern: python-versions/output/python-${{ matrix.tag }}-linux-s390x.tar.gz
+      arch: s390x
+      tag: ${{ matrix.tag }}
+
+  release-all-tags-ppc64le:
+    needs: get-all-tags
+    strategy:
+      matrix:
+        tag: ${{ fromJson(needs.get-all-tags.outputs.tags) }}
+    uses: ./.github/workflows/reusable-build-and-release-python-versions.yml
+    with:
+      upstream_repo: actions/python-versions
+      make_target: ''
+      tarball_pattern: python-versions/output/python-${{ matrix.tag }}-linux-ppc64le.tar.gz
+      arch: ppc64le
+      tag: ${{ matrix.tag }}
