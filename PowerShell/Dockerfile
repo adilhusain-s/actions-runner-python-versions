@@ -87,6 +87,7 @@ ENV PATH="${PATH}:/usr/local/pwsh"
 
 # Run full rebuild using build.sh
 RUN cd /root/PowerShell && \
+    dotnet clean && \
     /tmp/build.sh
 
 # Replace pwsh with rebuilt binaries
