@@ -36,8 +36,8 @@ jobs:
             UBUNTU_VERSION=${{ inputs.platform-version }}
             TARGETARCH=${{ inputs.arch }}
           tags: powershell:ubuntu
-          cache-from: type=gha,scope=pwsh-${{ inputs.platform-version }}-${{ inputs.arch }}
-          cache-to: type=gha,mode=max,scope=pwsh-${{ inputs.platform-version }}-${{ inputs.arch }}
+          # cache-from: type=gha,scope=pwsh-${{ inputs.platform-version }}-${{ inputs.arch }}
+          # cache-to: type=gha,mode=max,scope=pwsh-${{ inputs.platform-version }}-${{ inputs.arch }}
 
       - name: Build Python Docker image
         uses: docker/build-push-action@v5
@@ -49,8 +49,8 @@ jobs:
             TARGETARCH=${{ inputs.arch }}
           tags: pyvers:build
           outputs: type=local,dest=python-versions/output
-          cache-from: type=gha,scope=pyvers-${{ inputs.platform-version }}-${{ inputs.arch }}-${{ inputs.tag }}
-          cache-to: type=gha,mode=max,scope=pyvers-${{ inputs.platform-version }}-${{ inputs.arch }}-${{ inputs.tag }}
+          # cache-from: type=gha,scope=pyvers-${{ inputs.platform-version }}-${{ inputs.arch }}-${{ inputs.tag }}
+          # cache-to: type=gha,mode=max,scope=pyvers-${{ inputs.platform-version }}-${{ inputs.arch }}-${{ inputs.tag }}
 
       - name: List output files
         run: ls -l python-versions/output
