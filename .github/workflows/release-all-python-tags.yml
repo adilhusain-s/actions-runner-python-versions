@@ -1,3 +1,4 @@
+
 name: Release All Python Tags
 
 on:
@@ -9,34 +10,63 @@ jobs:
     outputs:
       tags: ${{ steps.tags.outputs.tags }}
     steps:
-      - name: Fetch all tags from actions/python-versions
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install Python dependencies
+        run: |
+          pip install -r .github/scripts/requirements.txt
+      - name: Get all stable Python tags from manifest
         id: tags
         run: |
-          tags=$(curl -s "https://api.github.com/repos/actions/python-versions/tags?per_page=1000" | jq -r '.[].name' | jq -R -s -c 'split("\n")[:-1]')
+          tags=$(python .github/scripts/get_python_version.py --list --stable | jq -R -s -c 'split("\n")[:-1]')
           echo "tags=$tags" >> $GITHUB_OUTPUT
 
-  release-all-tags-s390x:
+  build-and-release-matrix:
     needs: get-all-tags
     strategy:
       matrix:
         tag: ${{ fromJson(needs.get-all-tags.outputs.tags) }}
+        arch: [ppc64le]
+        include:
+          - arch: ppc64le
+            platform-version: '24.04'
+            runner-label: ubuntu-24.04-ppc64le
+        # To add s390x in the future, uncomment and adjust below:
+        # - arch: s390x
+        #   platform-version: '24.04'
+        #   runner-label: ubuntu-24.04-s390x
     uses: ./.github/workflows/reusable-build-and-release-python-versions.yml
     with:
-      upstream_repo: actions/python-versions
-      make_target: ''
-      tarball_pattern: python-versions/output/python-${{ matrix.tag }}-linux-s390x.tar.gz
-      arch: s390x
+      arch: ${{ matrix.arch }}
       tag: ${{ matrix.tag }}
+      platform-version: ${{ matrix.platform-version }}
+      runner-label: ${{ matrix.runner-label }}
 
-  release-all-tags-ppc64le:
-    needs: get-all-tags
+
+  release-asset:
+    needs: [build-and-release-matrix, get-all-tags]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         tag: ${{ fromJson(needs.get-all-tags.outputs.tags) }}
-    uses: ./.github/workflows/reusable-build-and-release-python-versions.yml
-    with:
-      upstream_repo: actions/python-versions
-      make_target: ''
-      tarball_pattern: python-versions/output/python-${{ matrix.tag }}-linux-ppc64le.tar.gz
-      arch: ppc64le
-      tag: ${{ matrix.tag }}
+        arch: [ppc64le]
+    steps:
+      - name: Download tar artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: python-tar-${{ matrix.tag }}-${{ matrix.arch }}
+          path: ./artifact
+
+      - name: List downloaded files (debugging step)
+        run: ls -R ./artifact
+
+      - name: Release .tar.gz files for this tag
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ matrix.tag }}
+          name: Release ${{ matrix.tag }}
+          files: ./artifact/**/*.tar.gz
