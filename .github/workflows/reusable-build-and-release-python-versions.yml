@@ -23,27 +23,17 @@ jobs:
       - name: Checkout this repo
         uses: actions/checkout@v4
 
-      - name: Build PowerShell Docker image
-        run: |
-          docker build \
-            --build-arg POWERSHELL_VERSION=v7.5.1 \
-            --build-arg POWERSHELL_NATIVE_VERSION=v7.4.0 \
-            --build-arg UBUNTU_VERSION=${{ inputs.platform-version }} \
-            --build-arg TARGETARCH=${{ inputs.arch }} \
-            -t powershell:ubuntu ./PowerShell > build-pwsh.log 2>&1 || (tail -n 40 build-pwsh.log && exit 1)
 
-      - name: Build Python Docker image and extract tarball
+      - name: Ensure make is installed
         run: |
-          docker build \
-            --build-arg python_version=${{ inputs.tag }} \
-            --build-arg UBUNTU_VERSION=${{ inputs.platform-version }} \
-            --build-arg TARGETARCH=${{ inputs.arch }} \
-            --build-arg BASE_IMAGE=powershell:ubuntu \
-            -t pyvers:build ./python-versions > build-python.log 2>&1 || (tail -n 40 build-python.log && exit 1)
-          container_id=$(docker create pyvers:build)
-          mkdir -p python-versions/output
-          docker cp "$container_id:/python-versions/output/python-${{ inputs.tag }}-linux-${{ inputs.arch }}.tar.gz" "python-versions/output/"
-          docker rm "$container_id"
+          if ! command -v make > /dev/null; then
+            sudo apt-get update && sudo apt-get install -y make
+          fi
+
+      - name: Build Python artifact using Makefile
+        run: |
+          make PYTHON_VERSION=${{ inputs.tag }} ARCH=${{ inputs.arch }} UBUNTU_VERSION=${{ inputs.platform-version }}
+
 
       - name: List output files
         run: ls -l python-versions/output
@@ -52,4 +42,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: python-tar
-          path: python-versions/output/python-${{ inputs.tag }}-linux-${{ inputs.arch }}.tar.gz
+          path: python-versions/output/python-${{ inputs.tag }}-linux-${{ inputs.platform-version }}-${{ inputs.arch }}.tar.gz
