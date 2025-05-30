@@ -47,19 +47,11 @@ jobs:
         with:
           name: python-tar
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Release with softprops/action-gh-release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.get-latest-tag.outputs.latest_tag }}
-          release_name: Release ${{ needs.get-latest-tag.outputs.latest_tag }}
+          name: Release ${{ needs.get-latest-tag.outputs.latest_tag }}
+          files: python-${{ needs.get-latest-tag.outputs.latest_tag }}.tar.gz
           draft: false
           prerelease: false
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./python-${{ needs.get-latest-tag.outputs.latest_tag }}.tar.gz
-          asset_name: python-${{ needs.get-latest-tag.outputs.latest_tag }}.tar.gz
-          asset_content_type: application/gzip
