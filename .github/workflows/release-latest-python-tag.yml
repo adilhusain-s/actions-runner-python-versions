@@ -42,17 +42,22 @@ jobs:
     needs: [build-and-release-matrix, get-latest-tag]
     runs-on: ubuntu-latest
     steps:
+
       - name: Download tar artifact
         uses: actions/download-artifact@v4
         with:
           name: python-tar
+          path: ./artifact  # <-- this ensures all files go to this known directory
+
+      - name: List downloaded files (debugging step)
+        run: ls -R ./artifact
 
       - name: Release all .tar.gz files from python-tar
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.get-latest-tag.outputs.latest_tag }}
           name: Release ${{ needs.get-latest-tag.outputs.latest_tag }}
-          files: python-tar/*.tar.gz
+          files: ./artifact/**/*.tar.gz  # <-- recursive glob to pick up any tar.gz in subfolders
           draft: false
           prerelease: false
           
