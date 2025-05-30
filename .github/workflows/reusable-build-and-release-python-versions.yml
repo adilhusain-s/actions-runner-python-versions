@@ -41,5 +41,5 @@ jobs:
       - name: Upload tar artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-tar-${{ inputs.tag }}-${{ inputs.arch }}
+          name: python-tar-${{ inputs.tag }}-${{ inputs.arch }}-${{ inputs.platform-version }}
           path: python-versions/output/python-${{ inputs.tag }}-linux-${{ inputs.platform-version }}-${{ inputs.arch }}.tar.gz

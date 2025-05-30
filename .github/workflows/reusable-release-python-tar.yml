@@ -1,0 +1,39 @@
+name: Reusable Release Python Tar
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+      arch:
+        required: true
+        type: string
+      platform-version:
+        required: true
+        type: string
+    secrets:
+      GH_TOKEN:
+        required: false
+
+jobs:
+  release-asset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download tar artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: python-tar-${{ inputs['tag'] }}-${{ inputs['arch'] }}-${{ inputs['platform-version'] }}
+          path: ./artifact
+
+      - name: List downloaded files (debugging step)
+        run: ls -R ./artifact
+
+      - name: Release all .tar.gz files from python-tar
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs['tag'] }}
+          name: Release ${{ inputs['tag'] }}
+          files: ./artifact/**/*.tar.gz
+          draft: false
+          prerelease: false
