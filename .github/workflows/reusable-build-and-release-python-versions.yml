@@ -19,6 +19,8 @@ on:
 jobs:
   build-and-release:
     runs-on: ${{ inputs.runner-label }}
+    outputs:
+      artifact_path: ${{ steps.set_output.outputs.artifact_path }}
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v4
@@ -43,3 +45,8 @@ jobs:
         with:
           name: python-tar
           path: python-versions/output/python-${{ inputs.tag }}-linux-${{ inputs.platform-version }}-${{ inputs.arch }}.tar.gz
+
+      - name: Set output file path
+        id: set_output
+        run: |
+          echo "artifact_path=python-tar/python-${{ inputs.tag }}-linux-${{ inputs.platform-version }}-${{ inputs.arch }}.tar.gz" >> $GITHUB_OUTPUT

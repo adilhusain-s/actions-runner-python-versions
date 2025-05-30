@@ -37,6 +37,9 @@ jobs:
       tag: ${{ needs.get-latest-tag.outputs.latest_tag }}
       platform-version: ${{ matrix.platform-version }}
       runner-label: ${{ matrix.runner-label }}
+    secrets: inherit
+    outputs:
+      artifact_path: ${{ steps.build-and-release.outputs.artifact_path }}
 
   release-asset:
     needs: [build-and-release-matrix, get-latest-tag]
@@ -52,6 +55,7 @@ jobs:
         with:
           tag_name: ${{ needs.get-latest-tag.outputs.latest_tag }}
           name: Release ${{ needs.get-latest-tag.outputs.latest_tag }}
-          files: python-${{ needs.get-latest-tag.outputs.latest_tag }}.tar.gz
+          files: ${{ needs.build-and-release-matrix.outputs.artifact_path }}
           draft: false
           prerelease: false
+          
