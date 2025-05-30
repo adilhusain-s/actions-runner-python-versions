@@ -19,6 +19,6 @@ RUN git clone https://github.com/actions/python-versions.git && \
     git submodule update && \
     RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${TARGETARCH} && \
     mkdir -p /python-versions/output && \
-    cp /tmp/python-*.tar.gz /python-versions/output/ || true
+    cp /tmp/artifact/python-*.tar.gz /python-versions/output/ || true
 
 CMD     /bin/bash
