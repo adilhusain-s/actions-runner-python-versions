@@ -29,7 +29,7 @@ python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz: powershell
 		--build-arg BASE_IMAGE=powershell:ubuntu \
 		-t pyvers:build . || exit 1; 
 	container_id=`$(CONTAINER_ENGINE) create pyvers:build`; \
-	$(CONTAINER_ENGINE) cp $$container_id:/python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz ./output/; \
+	$(CONTAINER_ENGINE) cp $$container_id:/python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz python-versions/output/; \
 	$(CONTAINER_ENGINE) rm $$container_id
 
 powershell: PowerShell/Dockerfile PowerShell/patch/powershell-native-$(POWERSHELL_NATIVE_VERSION).patch PowerShell/patch/powershell-$(ARCH)-$(POWERSHELL_VERSION).patch PowerShell/patch/powershell-gen-$(POWERSHELL_VERSION).tar.gz
