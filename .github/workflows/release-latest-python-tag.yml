@@ -46,7 +46,7 @@ jobs:
       - name: Download tar artifact
         uses: actions/download-artifact@v4
         with:
-          name: python-tar
+          name: python-tar-${{ needs.get-latest-tag.outputs.latest_tag }}-ppc64le
           path: ./artifact  # <-- this ensures all files go to this known directory
 
       - name: List downloaded files (debugging step)
