@@ -30,7 +30,7 @@ jobs:
       matrix:
         platform-version: ['24.04']
         arch: [ppc64le]
-        runner-label: [ubuntu-24.04-ppc64le-p10]
+        runner-label: [ubuntu-24.04-ppc64le-p10, ubuntu-24.04-ppc64le]
     uses: ./.github/workflows/reusable-build-and-release-python-versions.yml
     with:
       arch: ${{ matrix.arch }}
