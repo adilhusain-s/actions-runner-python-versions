@@ -15,7 +15,7 @@ else
 	VOLUME_FLAG := -v ./python-versions/output:/tmp/artifact
 endif
 
-all: python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz 
+all: python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz
 
 .PHONY: powershell
 
@@ -26,19 +26,23 @@ python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz: powershell
 		--build-arg python_version=$(PYTHON_VERSION) \
 		--build-arg UBUNTU_VERSION=$(UBUNTU_VERSION) \
 		--build-arg TARGETARCH=$(ARCH) \
-	   --build-arg BASE_IMAGE=powershell:ubuntu-$(UBUNTU_VERSION) \
-		-t python:$(PYTHON_VERSION)-ubuntu-$(UBUNTU_VERSION)-$(ARCH) . || exit 1; 
+		--build-arg BASE_IMAGE=powershell:ubuntu-$(UBUNTU_VERSION) \
+		-t python:$(PYTHON_VERSION)-ubuntu-$(UBUNTU_VERSION)-$(ARCH) . || exit 1; \
 	container_id=`$(CONTAINER_ENGINE) create python:$(PYTHON_VERSION)-ubuntu-$(UBUNTU_VERSION)-$(ARCH)`; \
 	$(CONTAINER_ENGINE) cp $$container_id:/tmp/artifact/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz python-versions/output/python-$(PYTHON_VERSION)-linux-$(UBUNTU_VERSION)-$(ARCH).tar.gz; \
 	$(CONTAINER_ENGINE) rm $$container_id
 
-powershell: PowerShell/Dockerfile PowerShell/patch/powershell-native-$(POWERSHELL_NATIVE_VERSION).patch PowerShell/patch/powershell-$(ARCH)-$(POWERSHELL_VERSION).patch PowerShell/patch/powershell-gen-$(POWERSHELL_VERSION).tar.gz
-cd PowerShell; \
-$(CONTAINER_ENGINE) build --build-arg POWERSHELL_VERSION=$(POWERSHELL_VERSION) \
-	--build-arg POWERSHELL_NATIVE_VERSION=$(POWERSHELL_NATIVE_VERSION) \
-	--build-arg UBUNTU_VERSION=$(UBUNTU_VERSION) \
-	--build-arg TARGETARCH=$(ARCH) \
-	--tag powershell:ubuntu-$(UBUNTU_VERSION) .
+powershell: PowerShell/Dockerfile \
+	PowerShell/patch/powershell-native-$(POWERSHELL_NATIVE_VERSION).patch \
+	PowerShell/patch/powershell-$(ARCH)-$(POWERSHELL_VERSION).patch \
+	PowerShell/patch/powershell-gen-$(POWERSHELL_VERSION).tar.gz
+	cd PowerShell; \
+	$(CONTAINER_ENGINE) build \
+		--build-arg POWERSHELL_VERSION=$(POWERSHELL_VERSION) \
+		--build-arg POWERSHELL_NATIVE_VERSION=$(POWERSHELL_NATIVE_VERSION) \
+		--build-arg UBUNTU_VERSION=$(UBUNTU_VERSION) \
+		--build-arg TARGETARCH=$(ARCH) \
+		--tag powershell:ubuntu-$(UBUNTU_VERSION) .
 
 # Pattern rule to help diagnose missing patch files
 PowerShell/patch/%.tar.gz:
