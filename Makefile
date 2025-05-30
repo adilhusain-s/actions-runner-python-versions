@@ -27,7 +27,7 @@ python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz: powershell
 		--build-arg UBUNTU_VERSION=$(UBUNTU_VERSION) \
 		--build-arg TARGETARCH=$(ARCH) \
 		--build-arg BASE_IMAGE=powershell:ubuntu \
-		-t pyvers:build . > build-python.log 2>&1 || (tail -n 40 build-python.log && exit 1); \
+		-t pyvers:build . || exit 1; 
 	container_id=`$(CONTAINER_ENGINE) create pyvers:build`; \
 	$(CONTAINER_ENGINE) cp $$container_id:/python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz ./output/; \
 	$(CONTAINER_ENGINE) rm $$container_id
