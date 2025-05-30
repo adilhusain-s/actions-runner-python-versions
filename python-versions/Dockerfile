@@ -20,7 +20,7 @@ RUN if [ ! -d /python-versions ]; then git clone https://github.com/actions/pyth
 WORKDIR /python-versions
 
 # Checkout and update submodules (split for better cache)
-RUN git checkout tags/${python_version} && \
+RUN git checkout tags/3.13.3-14344076652 && \
     git submodule init && \
     git submodule update
 
