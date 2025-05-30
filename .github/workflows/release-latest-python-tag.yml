@@ -37,9 +37,6 @@ jobs:
       tag: ${{ needs.get-latest-tag.outputs.latest_tag }}
       platform-version: ${{ matrix.platform-version }}
       runner-label: ${{ matrix.runner-label }}
-    secrets: inherit
-    outputs:
-      artifact_path: ${{ steps.build-and-release.outputs.artifact_path }}
 
   release-asset:
     needs: [build-and-release-matrix, get-latest-tag]
@@ -50,12 +47,12 @@ jobs:
         with:
           name: python-tar
 
-      - name: Release with softprops/action-gh-release
+      - name: Release all .tar.gz files from python-tar
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.get-latest-tag.outputs.latest_tag }}
           name: Release ${{ needs.get-latest-tag.outputs.latest_tag }}
-          files: ${{ needs.build-and-release-matrix.outputs.artifact_path }}
+          files: python-tar/*.tar.gz
           draft: false
           prerelease: false
           
