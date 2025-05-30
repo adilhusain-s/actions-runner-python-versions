@@ -29,7 +29,7 @@ python-versions/output/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz: powershell
 		--build-arg BASE_IMAGE=powershell:ubuntu-$(UBUNTU_VERSION) \
 		-t python:$(PYTHON_VERSION)-ubuntu-$(UBUNTU_VERSION)-$(ARCH) . || exit 1; \
 	container_id=`$(CONTAINER_ENGINE) create python:$(PYTHON_VERSION)-ubuntu-$(UBUNTU_VERSION)-$(ARCH)`; \
-	$(CONTAINER_ENGINE) cp $$container_id:/tmp/artifact/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz python-versions/output/python-$(PYTHON_VERSION)-linux-$(UBUNTU_VERSION)-$(ARCH).tar.gz; \
+	$(CONTAINER_ENGINE) cp $$container_id:/tmp/artifact/python-$(PYTHON_VERSION)-linux-$(ARCH).tar.gz output/python-$(PYTHON_VERSION)-linux-$(UBUNTU_VERSION)-$(ARCH).tar.gz; \
 	$(CONTAINER_ENGINE) rm $$container_id
 
 powershell: PowerShell/Dockerfile \
