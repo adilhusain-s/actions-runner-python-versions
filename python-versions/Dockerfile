@@ -25,8 +25,6 @@ RUN git checkout tags/${python_version} && \
     git submodule update
 
 # Build Python and copy output
-RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${TARGETARCH} && \
-    mkdir -p /python-versions/output && \
-    cp /tmp/artifact/python-*.tar.gz /python-versions/output/ || true
+RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${TARGETARCH}
 
 CMD ["/bin/bash"]
