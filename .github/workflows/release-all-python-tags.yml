@@ -31,6 +31,7 @@ jobs:
       matrix:
         tag: ${{ fromJson(needs.get-all-tags.outputs.tags) }}
         arch: [ppc64le]
+        platform-version: ['24.04']
         include:
           - arch: ppc64le
             platform-version: '24.04'
@@ -58,7 +59,7 @@ jobs:
       - name: Download tar artifact
         uses: actions/download-artifact@v4
         with:
-          name: python-tar-${{ matrix.tag }}-${{ matrix.arch }}
+          name: python-tar-${{ matrix.tag }}-${{ matrix.arch }}-${{ matrix.platform-version }}
           path: ./artifact
 
       - name: List downloaded files (debugging step)
