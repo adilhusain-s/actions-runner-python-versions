@@ -10,10 +10,13 @@ ARG TARGETARCH
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies (rarely changes)
-RUN apt-get -qq update -y && \
-    apt-get -qq -y install g++ gcc git libz-dev make pkg-config python3 sudo && \
-    apt autoclean
+
+# Set timezone to Asia/Kolkata non-interactively for tzdata
+RUN echo "tzdata tzdata/Areas select Asia" | debconf-set-selections \
+    && echo "tzdata tzdata/Zones/Asia select Kolkata" | debconf-set-selections \
+    && apt-get -qq update -y \
+    && apt-get -qq -y install tzdata g++ gcc git libz-dev make pkg-config python3 sudo \
+    && apt autoclean
 
 # Clone only if not already present (improves cache if repo doesn't change)
 RUN if [ ! -d /python-versions ]; then git clone https://github.com/actions/python-versions.git /python-versions; fi

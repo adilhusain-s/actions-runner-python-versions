@@ -30,6 +30,7 @@ jobs:
         run: ls -R ./artifact
 
       - name: Release all .tar.gz files from python-tar
+        id: create_release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ inputs['tag'] }}
@@ -37,3 +38,8 @@ jobs:
           files: ./artifact/**/*.tar.gz
           draft: false
           prerelease: false
+
+      - name: Echo browser download URLs of all assets
+        run: |
+          assets='${{ steps.create_release.outputs.assets }}'
+          echo "$assets" | jq -r '.[] | .browser_download_url'
