@@ -1,7 +1,7 @@
 
 ARG BASE_IMAGE=powershell:ubuntu
 ARG UBUNTU_VERSION=24.04
-FROM ${BASE_IMAGE} as builder
+FROM ${BASE_IMAGE} AS builder
 
 # Set build arguments that may change frequently
 ARG python_version=3.13.3-14344076652
@@ -35,7 +35,7 @@ RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${
 
 
 # Start a new final stage with Ubuntu base image
-FROM ubuntu:${UBUNTU_VERSION} as final
+FROM ubuntu:${UBUNTU_VERSION} AS final
 
 # Copy the entire artifact folder from the builder stage, preserving the path
 COPY --from=builder /tmp/artifact /tmp/artifact
