@@ -1,7 +1,7 @@
 
 ARG BASE_IMAGE=powershell:ubuntu
 ARG UBUNTU_VERSION=24.04
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} as builder
 
 # Set build arguments that may change frequently
 ARG python_version=3.13.3-14344076652
