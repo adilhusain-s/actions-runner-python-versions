@@ -12,7 +12,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 
 
-# Set timezone to Asia/Kolkata non-interactively for tzdata and install dependencies
 RUN export DEBIAN_FRONTEND=noninteractive && \
     echo "tzdata tzdata/Areas select Asia" | debconf-set-selections && \
     echo "tzdata tzdata/Zones/Asia select Kolkata" | debconf-set-selections && \
@@ -32,5 +31,13 @@ RUN git checkout tags/3.13.3-14344076652 && \
 
 # Build Python and copy output
 RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${TARGETARCH}
+
+
+
+# Start a new final stage with Ubuntu base image
+FROM ubuntu:${UBUNTU_VERSION} as final
+
+# Copy the entire artifact folder from the builder stage, preserving the path
+COPY --from=builder /tmp/artifact /tmp/artifact
 
 CMD ["/bin/bash"]
