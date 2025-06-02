@@ -71,7 +71,7 @@ jobs:
   release-assets:
     needs: [build-and-release-matrix, get-tags]
     concurrency:
-      group: release-assets-${{ github.ref }}-${{ github.workflow }}
+      group: release-assets-queue
       cancel-in-progress: false
     strategy:
       matrix:
