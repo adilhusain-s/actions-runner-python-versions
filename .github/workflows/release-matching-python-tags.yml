@@ -65,11 +65,14 @@ jobs:
     with:
       arch: ${{ matrix.arch }}
       tag: ${{ matrix.tag }}
-      platform-version: ${{ matrix.platform-version }}
-      runner-label: ${{ matrix.runner-label }}
+      platform-version: ${{ matrix['platform-version'] }}
+      runner-label: ${{ matrix['runner-label'] }}
 
   release-assets:
     needs: [build-and-release-matrix, get-tags]
+    concurrency:
+      group: release-assets-${{ github.ref }}-${{ github.workflow }}
+      cancel-in-progress: false
     strategy:
       matrix:
         tag: ${{ fromJson(needs.get-tags.outputs.tags_json) }}
