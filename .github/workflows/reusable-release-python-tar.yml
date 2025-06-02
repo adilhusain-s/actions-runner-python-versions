@@ -2,6 +2,11 @@ name: Reusable Release Python Tar
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g., 3.13.3)"
+        required: true
+        type: string
   workflow_call:
     inputs:
       tag:
