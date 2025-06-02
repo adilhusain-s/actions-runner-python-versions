@@ -48,7 +48,7 @@ jobs:
     strategy:
       matrix:
         tag: ${{ fromJson(needs.get-tags.outputs.tags_json) }}
-        platform-version: ['24.04', '22.04']
+        platform-version: ['24.04']
         arch: [ppc64le]
         runner-label: [ubuntu-24.04-ppc64le]
     uses: ./.github/workflows/reusable-build-and-release-python-versions.yml
