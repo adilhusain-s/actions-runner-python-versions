@@ -20,11 +20,12 @@ jobs:
   release-assets-and-update-manifest:
     runs-on: ubuntu-latest
     steps:
-      - name: Download tar artifact
+      - name: Download all build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: python-tar-${{ inputs['tag'] }}-${{ inputs['arch'] }}-${{ inputs['platform-version'] }}
           path: ./artifact
+          pattern: python-tar-${{ inputs.tag }}-*
+          merge-multiple: true
 
       - name: List downloaded files (debugging step)
         run: ls -R ./artifact
