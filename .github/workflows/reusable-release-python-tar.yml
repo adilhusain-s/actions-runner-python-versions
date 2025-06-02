@@ -43,3 +43,59 @@ jobs:
         run: |
           assets='${{ steps.create_release.outputs.assets }}'
           echo "$assets" | jq -r '.[] | .browser_download_url'
+
+  update-manifest:
+    needs: release-asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install typer requests pydantic
+        working-directory: .github/scripts
+
+      - name: Download upstream versions-manifest.json
+        run: |
+          curl -sSL -o versions-manifest.json "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json"
+
+      - name: Prepare arch-specific manifest file
+        run: |
+          ARCH_MANIFEST="versions-manifest-${{ inputs.arch }}.json"
+          [ -f "$ARCH_MANIFEST" ] || echo "[]" > "$ARCH_MANIFEST"
+
+      - name: Update arch-specific manifest with new release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          python .github/scripts/manifest_tools.py update_version \
+            "versions-manifest-${{ inputs.arch }}.json" \
+            --version "${{ inputs.tag }}" \
+            --filename "${{ fromJSON(needs.release-asset.outputs.assets)[0].name }}" \
+            --arch "${{ inputs.arch }}" \
+            --platform "linux" \
+            --platform-version "${{ inputs['platform-version'] }}" \
+            --download-url "${{ fromJSON(needs.release-asset.outputs.assets)[0].browser_download_url }}" \
+            --stable false
+
+      - name: Merge arch-specific manifest into upstream-based manifest
+        run: |
+          python .github/scripts/manifest_tools.py merge \
+            versions-manifest.json \
+            versions-manifest-${{ inputs.arch }}.json \
+            versions-manifest.json
+
+      - name: Commit and push updated manifests
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add versions-manifest.json versions-manifest-${{ inputs.arch }}.json
+          git commit -m "Update manifests for ${{ inputs.tag }} [skip ci]" || echo "No changes to commit"
+          git push
