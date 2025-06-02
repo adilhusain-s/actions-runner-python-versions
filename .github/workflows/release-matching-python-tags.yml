@@ -23,8 +23,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Python dependencies
-        run: |
-          pip install -r .github/scripts/requirements.txt
+        run: pip install -r .github/scripts/requirements.txt
 
       - name: Get Python tags matching filter
         id: collect
@@ -35,22 +34,13 @@ jobs:
           if [ -z "$TAG_FILTER" ]; then
             LATEST=$(python .github/scripts/get_python_version.py --latest)
             echo "No tag_filter input provided, fetched latest tag: $LATEST"
-            # Convert latest version like 3.13.3 to 3.13.*
             FILTER=$(echo "$LATEST" | sed -E 's/\.[0-9]+$/.*/')
-            echo "Converted latest tag to filter: $FILTER"
           else
             FILTER="$TAG_FILTER"
-            echo "Using provided tag_filter: $FILTER"
           fi
 
           TAGS=$(python .github/scripts/get_python_version.py --list --filter "$FILTER")
-          echo "Raw tags found:"
-          echo "$TAGS"
-
           TAGS_JSON=$(echo "$TAGS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          echo "Tags JSON for matrix:"
-          echo "$TAGS_JSON"
-
           echo "tags_json=$TAGS_JSON" >> "$GITHUB_OUTPUT"
 
   build-and-release-matrix:
@@ -70,12 +60,59 @@ jobs:
 
   release-assets:
     needs: [build-and-release-matrix, get-tags]
-    concurrency:
-      group: release-assets-queue
-      cancel-in-progress: false
-    strategy:
-      matrix:
-        tag: ${{ fromJson(needs.get-tags.outputs.tags_json) }}
-    uses: ./.github/workflows/reusable-release-python-tar.yml
-    with:
-      tag: ${{ matrix.tag }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install GitHub CLI
+        run: |
+          sudo apt update
+          sudo apt install -y gh
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: pip install -r .github/scripts/requirements.txt
+
+      - name: Loop through tags and trigger release workflow
+        env:
+          TAGS_JSON: ${{ needs.get-tags.outputs.tags_json }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REUSABLE_WORKFLOW: .github/workflows/reusable-release-python-tar.yml
+        run: |
+          TAGS=$(echo "$TAGS_JSON" | jq -r '.[]')
+
+          for TAG in $TAGS; do
+            echo "Triggering release for tag: $TAG"
+            gh workflow run "$REUSABLE_WORKFLOW" -f tag="$TAG"
+
+            # Wait for workflow run to start
+            while true; do
+              RUN_ID=$(gh run list --workflow "$REUSABLE_WORKFLOW" --json databaseId,displayTitle -q ".[] | select(.displayTitle | test(\"$TAG\")) | .databaseId" | head -n1)
+              if [ -n "$RUN_ID" ]; then
+                break
+              fi
+              echo "Waiting for workflow run to be created for tag $TAG..."
+              sleep 5
+            done
+
+            # Wait for run to finish
+            while true; do
+              STATUS=$(gh run view "$RUN_ID" --json status -q '.status')
+              echo "Status: $STATUS"
+              if [[ "$STATUS" == "completed" ]]; then
+                CONCLUSION=$(gh run view "$RUN_ID" --json conclusion -q '.conclusion')
+                echo "Conclusion: $CONCLUSION"
+                if [[ "$CONCLUSION" != "success" ]]; then
+                  echo "Release failed for tag $TAG"
+                  exit 1
+                fi
+                break
+              fi
+              sleep 15
+            done
+          done
