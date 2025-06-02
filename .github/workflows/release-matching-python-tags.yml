@@ -29,17 +29,26 @@ jobs:
       - name: Get Python tags matching filter
         id: collect
         run: |
-          if [ -z "${{ github.event.inputs.tag_filter }}" ]; then
+          echo "Input tag_filter: '${{ github.event.inputs.tag_filter }}'"
+
+          TAG_FILTER="${{ github.event.inputs.tag_filter }}"
+          if [ -z "$TAG_FILTER" ]; then
             FILTER=$(python .github/scripts/get_python_version.py --latest)
+            echo "No tag_filter input provided, using latest tag as filter: $FILTER"
           else
-            FILTER="${{ github.event.inputs.tag_filter }}"
+            FILTER="$TAG_FILTER"
+            echo "Using provided tag_filter: $FILTER"
           fi
 
-          echo "Using filter: $FILTER"
-
           TAGS=$(python .github/scripts/get_python_version.py --list --filter "$FILTER")
+          echo "Raw tags found:"
+          echo "$TAGS"
+
           TAGS_JSON=$(echo "$TAGS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          echo "tags_json=$TAGS_JSON" >> $GITHUB_OUTPUT
+          echo "Tags JSON for matrix:"
+          echo "$TAGS_JSON"
+
+          echo "tags_json=$TAGS_JSON" >> "$GITHUB_OUTPUT"
 
   build-and-release-matrix:
     needs: get-tags
@@ -64,70 +73,3 @@ jobs:
     uses: ./.github/workflows/reusable-release-python-tar.yml
     with:
       tag: ${{ matrix.tag }}
-name: Release Matching Python Tags
-
-on:
-  workflow_dispatch:
-    inputs:
-      tag_filter:
-        description: 'Optional: Filter for Python versions (e.g., 3.13.*). If empty, uses latest.'
-        required: false
-        type: string
-
-jobs:
-  get-tags:
-    runs-on: ubuntu-latest
-    outputs:
-      tags_json: ${{ steps.collect.outputs.tags_json }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install Python dependencies
-        run: |
-          pip install -r .github/scripts/requirements.txt
-
-      - name: Get Python tags matching filter
-        id: collect
-        run: |
-          if [ -z "${{ github.event.inputs.tag_filter }}" ]; then
-            FILTER=$(python .github/scripts/get_python_version.py --latest)
-          else
-            FILTER="${{ github.event.inputs.tag_filter }}"
-          fi
-
-          echo "Using filter: $FILTER"
-
-          TAGS=$(python .github/scripts/get_python_version.py --list --filter "$FILTER")
-          TAGS_JSON=$(echo "$TAGS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
-          echo "tags_json=$TAGS_JSON" >> $GITHUB_OUTPUT
-
-  build-and-release-matrix:
-    needs: get-tags
-    strategy:
-      matrix:
-        tag: ${{ fromJson(needs.get-tags.outputs.tags_json) }}
-        platform-version: ['24.04', '22.04']
-        arch: [ppc64le]
-        runner-label: [ubuntu-24.04-ppc64le]
-    uses: ./.github/workflows/reusable-build-and-release-python-versions.yml
-    with:
-      arch: ${{ matrix.arch }}
-      tag: ${{ matrix.tag }}
-      platform-version: ${{ matrix.platform-version }}
-      runner-label: ${{ matrix.runner-label }}
-
-  release-assets:
-    needs: [build-and-release-matrix, get-tags]
-    strategy:
-      matrix:
-        tag: ${{ fromJson(needs.get-tags.outputs.tags_json) }}
-    uses: ./.github/workflows/reusable-release-python-tar.yml
-    with:
-      tag: ${{ matrix.tag }}
-
