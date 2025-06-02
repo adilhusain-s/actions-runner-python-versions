@@ -4,12 +4,7 @@ on:
   workflow_call:
     inputs:
       tag:
-        required: true
-        type: string
-      arch:
-        required: true
-        type: string
-      platform-version:
+        description: "Release tag (e.g., 3.13.3)"
         required: true
         type: string
     secrets:
@@ -24,7 +19,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ./artifact
-          pattern: python-tar-${{ inputs.tag }}-*
+          pattern: python-tar-*-*
           merge-multiple: true
 
       - name: List downloaded files (debugging step)
@@ -34,8 +29,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ inputs['tag'] }}
-          name: Release ${{ inputs['tag'] }}
+          tag_name: ${{ inputs.tag }}
+          name: Release ${{ inputs.tag }}
           files: ./artifact/**/*.tar.gz
           draft: false
           prerelease: false
@@ -58,36 +53,62 @@ jobs:
         run: |
           curl -sSL -o versions-manifest.json "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json"
 
-      - name: Prepare arch-specific manifest file
-        run: |
-          ARCH_MANIFEST="versions-manifest-${{ inputs.arch }}.json"
-          [ -f "$ARCH_MANIFEST" ] || echo "[]" > "$ARCH_MANIFEST"
-
-      - name: Update arch-specific manifest with new release
+      - name: Update manifests for all released assets
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          python .github/scripts/manifest_tools.py update_version \
-            "versions-manifest-${{ inputs.arch }}.json" \
-            --version "${{ inputs.tag }}" \
-            --filename "${{ fromJSON(steps.create_release.outputs.assets)[0].name }}" \
-            --arch "${{ inputs.arch }}" \
-            --platform "linux" \
-            --platform-version "${{ inputs['platform-version'] }}" \
-            --download-url "${{ fromJSON(steps.create_release.outputs.assets)[0].browser_download_url }}" \
-            --stable
+          assets_json='${{ steps.create_release.outputs.assets }}'
+          asset_count=$(echo "$assets_json" | jq length)
 
-      - name: Merge arch-specific manifest into upstream-based manifest
+          for i in $(seq 0 $((asset_count - 1))); do
+            asset_name=$(echo "$assets_json" | jq -r ".[$i].name")
+            download_url=$(echo "$assets_json" | jq -r ".[$i].browser_download_url")
+
+            # Parse asset name: python-tag-linux-platform_version-arch.tar.gz
+            base_name="${asset_name#python-}"
+            base_name="${base_name%.tar.gz}"
+
+            IFS='-' read -r _ platform platform_version arch <<< "$base_name"
+
+            manifest_file="versions-manifest-${arch}.json"
+
+            # Prepare arch-specific manifest if not exists
+            if [ ! -f "$manifest_file" ]; then
+              echo "[]" > "$manifest_file"
+            fi
+
+            echo "::group::Parsed asset metadata"
+            echo "Asset: $asset_name"
+            echo "Version: ${{ inputs.tag }}"
+            echo "Platform: $platform"
+            echo "Platform version: $platform_version"
+            echo "Arch: $arch"
+            echo "Download URL: $download_url"
+            echo "::endgroup::"
+
+            python .github/scripts/manifest_tools.py update_version \
+              "$manifest_file" \
+              --version "${{ inputs.tag }}" \
+              --filename "$asset_name" \
+              --arch "$arch" \
+              --platform "$platform" \
+              --platform-version "$platform_version" \
+              --download-url "$download_url" \
+              --stable
+          done
+
+      - name: Merge all arch-specific manifests into main manifest
         run: |
-          python .github/scripts/manifest_tools.py merge \
-            versions-manifest.json \
-            versions-manifest-${{ inputs.arch }}.json \
-            versions-manifest.json
+          for manifest in versions-manifest-*.json; do
+            if [[ "$manifest" != "versions-manifest.json" ]]; then
+              python .github/scripts/manifest_tools.py merge versions-manifest.json "$manifest" versions-manifest.json
+            fi
+          done
 
       - name: Commit and push updated manifests
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add versions-manifest.json versions-manifest-${{ inputs.arch }}.json
-          git commit -m "Update manifests for ${{ inputs.tag }} [skip ci]" || echo "No changes to commit"
+          git add versions-manifest.json versions-manifest-*.json
+          git commit -m "Update manifests for tag ${{ inputs.tag }} [skip ci]" || echo "No changes to commit"
           git push
