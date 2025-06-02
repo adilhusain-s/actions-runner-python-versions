@@ -16,15 +16,15 @@ class PythonManifestParser:
 
     @staticmethod
     def is_alpha(version):
-        return version.endswith("alpha") or "-alpha." in version
+        return version.endswith("alpha") or "-alpha." in version or "-alpha" in version
 
     @staticmethod
     def is_beta(version):
-        return version.endswith("beta") or "-beta." in version
+        return version.endswith("beta") or "-beta." in version or "-beta" in version
 
     @staticmethod
     def is_rc(version):
-        return version.endswith("rc") or "-rc." in version
+        return version.endswith("rc") or "-rc." in version or "-rc" in version
 
     @classmethod
     def is_stable(cls, version):
@@ -32,7 +32,8 @@ class PythonManifestParser:
 
     @staticmethod
     def parse_version(version):
-        match = re.match(r"(\d+)\.(\d+)\.(\d+)(?:-([a-z]+)\.(\d+))?", version)
+        # Support variants like 3.9.0rc1 or 3.9.0-rc.1 or 3.9.0-rc1
+        match = re.match(r"(\d+)\.(\d+)\.(\d+)(?:-?([a-z]+)(?:\.|)(\d+))?", version)
         if not match:
             return (0, 0, 0, 0, 0)
         major, minor, patch, pre, pre_num = match.groups()
@@ -53,33 +54,53 @@ class PythonManifestParser:
         pb = cls.parse_version(b)
         return (pa > pb) - (pa < pb)
 
-    def filter_versions(self, include_beta=False, include_alpha=False, include_rc=False, only_stable=False):
+    def filter_versions(self, include_beta=False, include_alpha=False, include_rc=False, only_stable=False, version_filter=None):
         versions = []
+        include_prerelease = include_alpha or include_beta or include_rc
+
         for entry in self.manifest:
             version = entry.get("version")
             if not version:
                 continue
+
             if only_stable:
+                # Include only stable versions
                 if self.is_stable(version):
                     versions.append(version)
                 continue
-            if self.is_stable(version):
-                versions.append(version)
-            elif include_alpha and self.is_alpha(version):
-                versions.append(version)
-            elif include_beta and self.is_beta(version):
-                versions.append(version)
-            elif include_rc and self.is_rc(version):
-                versions.append(version)
+
+            if include_prerelease:
+                # Include only requested pre-release versions, exclude stable
+                if include_alpha and self.is_alpha(version):
+                    versions.append(version)
+                elif include_beta and self.is_beta(version):
+                    versions.append(version)
+                elif include_rc and self.is_rc(version):
+                    versions.append(version)
+                # Do NOT include stable versions here
+            else:
+                # No flags - include stable versions only
+                if self.is_stable(version):
+                    versions.append(version)
+
+        if version_filter:
+            versions = [v for v in versions if PythonManifestParser.version_matches_filter(v, version_filter)]
+
         return versions
 
-    def list_versions(self, include_beta=False, include_alpha=False, include_rc=False, only_stable=False):
-        versions = self.filter_versions(include_beta, include_alpha, include_rc, only_stable)
+    @staticmethod
+    def version_matches_filter(version, pattern):
+        # Convert glob-like pattern (e.g., 3.5.*, 3.*.0) to regex
+        regex = re.escape(pattern).replace(r'\*', '.*')
+        return re.fullmatch(regex, version) is not None
+
+    def list_versions(self, include_beta=False, include_alpha=False, include_rc=False, only_stable=False, version_filter=None):
+        versions = self.filter_versions(include_beta, include_alpha, include_rc, only_stable, version_filter)
         versions.sort(key=cmp_to_key(self.version_compare), reverse=True)
         return versions
 
-    def get_latest_version(self, include_beta=False, include_alpha=False, include_rc=False, only_stable=False):
-        versions = self.filter_versions(include_beta, include_alpha, include_rc, only_stable)
+    def get_latest_version(self, include_beta=False, include_alpha=False, include_rc=False, only_stable=False, version_filter=None):
+        versions = self.filter_versions(include_beta, include_alpha, include_rc, only_stable, version_filter)
         if not versions:
             return None
         versions.sort(key=cmp_to_key(self.version_compare), reverse=True)
@@ -100,6 +121,7 @@ def main():
     parser.add_argument('--rc', action='store_true', help='Include release candidate versions')
     parser.add_argument('--stable', action='store_true', help='Only include stable versions')
     parser.add_argument('--latest', action='store_true', help='Print only the latest matching version')
+    parser.add_argument('--filter', type=str, help='Glob pattern to filter versions (e.g., 3.5.*, 3.9.*, 3.*.0)')
     args = parser.parse_args()
 
     if not (args.list or args.latest):
@@ -134,7 +156,8 @@ def main():
             include_beta=args.beta,
             include_alpha=args.alpha,
             include_rc=args.rc,
-            only_stable=args.stable
+            only_stable=args.stable,
+            version_filter=args.filter
         ):
             print(v)
     elif args.latest:
@@ -142,7 +165,8 @@ def main():
             include_beta=args.beta,
             include_alpha=args.alpha,
             include_rc=args.rc,
-            only_stable=args.stable
+            only_stable=args.stable,
+            version_filter=args.filter
         )
         if latest:
             print(latest)
