@@ -1,6 +1,7 @@
 name: Reusable Release Python Tar
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       tag:
