@@ -33,8 +33,11 @@ jobs:
 
           TAG_FILTER="${{ github.event.inputs.tag_filter }}"
           if [ -z "$TAG_FILTER" ]; then
-            FILTER=$(python .github/scripts/get_python_version.py --latest)
-            echo "No tag_filter input provided, using latest tag as filter: $FILTER"
+            LATEST=$(python .github/scripts/get_python_version.py --latest)
+            echo "No tag_filter input provided, fetched latest tag: $LATEST"
+            # Convert latest version like 3.13.3 to 3.13.*
+            FILTER=$(echo "$LATEST" | sed -E 's/\.[0-9]+$/.*/')
+            echo "Converted latest tag to filter: $FILTER"
           else
             FILTER="$TAG_FILTER"
             echo "Using provided tag_filter: $FILTER"
