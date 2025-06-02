@@ -19,6 +19,8 @@ on:
 jobs:
   release-asset:
     runs-on: ubuntu-latest
+    outputs:
+      assets_json: ${{ steps.extract_assets.outputs.assets_json }}
     steps:
       - name: Download tar artifact
         uses: actions/download-artifact@v4
@@ -39,10 +41,10 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Echo browser download URLs of all assets
+      - name: Set output for assets
+        id: extract_assets
         run: |
-          assets='${{ steps.create_release.outputs.assets }}'
-          echo "$assets" | jq -r '.[] | .browser_download_url'
+          echo "assets_json=${{ steps.create_release.outputs.assets }}" >> $GITHUB_OUTPUT
 
   update-manifest:
     needs: release-asset
@@ -78,12 +80,12 @@ jobs:
           python .github/scripts/manifest_tools.py update_version \
             "versions-manifest-${{ inputs.arch }}.json" \
             --version "${{ inputs.tag }}" \
-            --filename "${{ fromJSON(needs.release-asset.outputs.assets)[0].name }}" \
+            --filename "${{ fromJSON(needs.release-asset.outputs.assets_json)[0].name }}" \
             --arch "${{ inputs.arch }}" \
             --platform "linux" \
             --platform-version "${{ inputs['platform-version'] }}" \
-            --download-url "${{ fromJSON(needs.release-asset.outputs.assets)[0].browser_download_url }}" \
-            --stable true 
+            --download-url "${{ fromJSON(needs.release-asset.outputs.assets_json)[0].browser_download_url }}" \
+            --stable true
 
       - name: Merge arch-specific manifest into upstream-based manifest
         run: |
