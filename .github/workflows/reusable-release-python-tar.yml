@@ -83,7 +83,7 @@ jobs:
             --platform "linux" \
             --platform-version "${{ inputs['platform-version'] }}" \
             --download-url "${{ fromJSON(needs.release-asset.outputs.assets)[0].browser_download_url }}" \
-            --stable false
+            --stable true 
 
       - name: Merge arch-specific manifest into upstream-based manifest
         run: |
