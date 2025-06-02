@@ -2,6 +2,11 @@ name: Release Latest Python Tag
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Optional: Python version tag to release (overrides latest detected)'
+        required: false
+        type: string
 
 jobs:
   get-latest-tag:
@@ -18,11 +23,15 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r .github/scripts/requirements.txt
-      - name: Get latest stable Python version from manifest
+      - name: Determine tag to use
         id: get_tag
         run: |
-          latest_tag=$(python .github/scripts/get_python_version.py --latest --stable)
-          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            echo "latest_tag=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            latest_tag=$(python .github/scripts/get_python_version.py --latest --stable)
+            echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+          fi
 
   build-and-release-matrix:
     needs: get-latest-tag
