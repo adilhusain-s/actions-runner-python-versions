@@ -31,17 +31,24 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+
+# Arguments for upstream and downstream Python versions
+ARG PYTHON_VERSION
+ARG ACTIONS_PYTHON_VERSIONS
+
 # Clone only if not already present (improves cache if repo doesn't change)
 RUN if [ ! -d /python-versions ]; then git clone https://github.com/actions/python-versions.git /python-versions; fi
 WORKDIR /python-versions
 
-# Checkout and update submodules (split for better cache)
-RUN git checkout tags/3.13.3-14344076652 && \
+# Checkout the specified version and update submodules (split for better cache)
+RUN git checkout "${ACTIONS_PYTHON_VERSIONS}" && \
     git submodule init && \
     git submodule update
 
+
+
 # Build Python and copy output
-RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${TARGETARCH}
+RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${PYTHON_VERSION}" linux ${UBUNTU_VERSION}
 FROM ubuntu:${UBUNTU_VERSION} AS final
 # Copy the entire artifact folder from the builder stage, preserving the path
 COPY --from=builder /tmp/artifact /tmp/artifact
