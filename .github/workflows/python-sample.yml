@@ -6,15 +6,22 @@ on:
 
 jobs:
   run-python-sample:
-    runs-on: ubuntu-24.04-ppc64le
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-24.04-ppc64le
+            arch: ppc64le
+          - os: ubuntu-latest
+            arch: x64
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up Python (ppc64le)
+      - name: Set up Python
         uses: adilhusain-s/setup-python@main
         with:
           python-version: 3.13.3
-          architecture: ppc64le
+          architecture: ${{ matrix.arch }}
       - name: Test Python installation
         run: |
           python --version
