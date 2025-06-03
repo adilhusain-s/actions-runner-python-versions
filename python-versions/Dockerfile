@@ -5,7 +5,13 @@ FROM ${BASE_IMAGE} AS builder
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive \
     CC=gcc \
-    CXX=g++
+    CXX=g++ \
+    CFLAGS="-O3 -fPIC -march=native" \
+    CXXFLAGS="-O3 -fPIC -march=native"
+
+# -O3: Aggressive performance optimization.
+# -fPIC: Position-Independent Code, essential for shared libraries/modules.
+# -march=native: Automatically detects the CPU architecture of the build host
 
 # Set up the time zone
 RUN export DEBIAN_FRONTEND=noninteractive && \
@@ -48,7 +54,8 @@ RUN git checkout "${ACTIONS_PYTHON_VERSIONS}" && \
 
 
 # Build Python and copy output
-RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${PYTHON_VERSION}" linux ${UBUNTU_VERSION}
+RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${TARGETARCH}
+
 FROM ubuntu:${UBUNTU_VERSION} AS final
 # Copy the entire artifact folder from the builder stage, preserving the path
 COPY --from=builder /tmp/artifact /tmp/artifact
