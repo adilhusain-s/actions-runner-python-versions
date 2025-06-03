@@ -41,7 +41,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 
 # Arguments for upstream and downstream Python versions
-ARG PYTHON_VERSION
+ARG PYTHON_VERSION=3.13.3
 ARG ACTIONS_PYTHON_VERSIONS=3.13.3-14344076652
 ARG TARGETARCH
 
