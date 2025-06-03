@@ -1,0 +1,19 @@
+# .github/workflows/python-sample.yml
+name: Run Python Sample (ppc64le)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-python-sample:
+    runs-on: ubuntu-24.04-ppc64le
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python (ppc64le)
+        uses: adilhusain-s/setuppython@main
+        with:
+          python-version: 3.13.3
+          architecture: ppc64le
+      - name: Run Python sample
+        run: python runner-info.py

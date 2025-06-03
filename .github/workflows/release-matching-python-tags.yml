@@ -68,11 +68,10 @@ jobs:
       platform-version: ${{ matrix['platform-version'] }}
       runner-label: ${{ matrix['runner-label'] }}
 
+
   release-assets:
     needs: [build-and-release-matrix, get-tags]
-    # concurrency:
-      # group: release-assets-queue
-      # cancel-in-progress: false
+    # ...existing code...
     strategy:
       matrix:
         tag: ${{ fromJson(needs.get-tags.outputs.tags_json) }}
