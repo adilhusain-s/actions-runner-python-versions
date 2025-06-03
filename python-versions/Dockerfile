@@ -19,8 +19,8 @@ ARG ACTIONS_PYTHON_VERSIONS
 ENV DEBIAN_FRONTEND=noninteractive \
     CC=gcc \
     CXX=g++ \
-    CFLAGS="-O3 -fPIC -march=native" \
-    CXXFLAGS="-O3 -fPIC -march=native"
+    CFLAGS="-O3 -march=native" \
+    CXXFLAGS="-O3 -march=native"
 
 # Set up the time zone
 RUN export DEBIAN_FRONTEND=noninteractive && \
