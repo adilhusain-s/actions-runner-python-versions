@@ -58,8 +58,6 @@ RUN git checkout "${ACTIONS_PYTHON_VERSIONS}" && \
 # Set RUNNER_TEMP env var globally in this stage
 ENV RUNNER_TEMP=/tmp
 
-ENV RUNNER_TEMP=/tmp
-
 RUN pwsh -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "& { ./builders/build-python.ps1 '${PYTHON_VERSION}' linux ${TARGETARCH}; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE } }"
 
 # ================= FINAL STAGE =====================
