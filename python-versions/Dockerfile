@@ -34,7 +34,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 # Arguments for upstream and downstream Python versions
 ARG PYTHON_VERSION
-ARG ACTIONS_PYTHON_VERSIONS
+ARG ACTIONS_PYTHON_VERSIONS=3.13.3-14344076652
 
 # Clone only if not already present (improves cache if repo doesn't change)
 RUN if [ ! -d /python-versions ]; then git clone https://github.com/actions/python-versions.git /python-versions; fi
