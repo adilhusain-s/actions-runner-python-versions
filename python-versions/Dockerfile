@@ -9,6 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     CFLAGS="-O3 -fPIC -march=native" \
     CXXFLAGS="-O3 -fPIC -march=native"
 
+
 # -O3: Aggressive performance optimization.
 # -fPIC: Position-Independent Code, essential for shared libraries/modules.
 # -march=native: Automatically detects the CPU architecture of the build host
@@ -54,7 +55,8 @@ RUN git checkout "${ACTIONS_PYTHON_VERSIONS}" && \
 
 
 # Build Python and copy output
-RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${TARGETARCH}
+RUN export MAKEFLAGS="-j$(nproc)" && \
+    RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${python_version}" linux ${TARGETARCH}
 
 FROM ubuntu:${UBUNTU_VERSION} AS final
 # Copy the entire artifact folder from the builder stage, preserving the path
