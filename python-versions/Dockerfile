@@ -55,7 +55,12 @@ RUN git checkout "${ACTIONS_PYTHON_VERSIONS}" && \
     git submodule update
 
 # Build Python
-RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${PYTHON_VERSION}" linux ${TARGETARCH}
+# Set RUNNER_TEMP env var globally in this stage
+ENV RUNNER_TEMP=/tmp
+
+SHELL ["pwsh", "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-Command"]
+
+RUN ./builders/build-python.ps1 "${PYTHON_VERSION}" linux ${TARGETARCH}
 
 # ================= FINAL STAGE =====================
 FROM ubuntu:${UBUNTU_VERSION} AS final
