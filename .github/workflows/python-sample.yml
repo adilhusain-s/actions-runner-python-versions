@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up Python (ppc64le)
-        uses: adilhusain-s/setuppython@main
+        uses: adilhusain-s/setup-python@main
         with:
           python-version: 3.13.3
           architecture: ppc64le
