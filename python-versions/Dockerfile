@@ -57,8 +57,7 @@ RUN git checkout "${ACTIONS_PYTHON_VERSIONS}" && \
 
 
 # Build Python and copy output
-RUN export MAKEFLAGS="-j$(nproc)" && \
-    RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${PYTHON_VERSION}" linux ${TARGETARCH}
+RUN RUNNER_TEMP=/tmp pwsh builders/build-python.ps1 "${PYTHON_VERSION}" linux ${TARGETARCH}
 
 FROM ubuntu:${UBUNTU_VERSION} AS final
 # Copy the entire artifact folder from the builder stage, preserving the path
