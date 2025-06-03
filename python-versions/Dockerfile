@@ -1,6 +1,6 @@
 
-ARG BASE_IMAGE=powershell:ubuntu
 ARG UBUNTU_VERSION=24.04
+ARG BASE_IMAGE=powershell:ubuntu-${UBUNTU_VERSION}
 FROM ${BASE_IMAGE} AS builder
 
 # Set build arguments that may change frequently
