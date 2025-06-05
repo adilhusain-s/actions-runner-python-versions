@@ -133,27 +133,20 @@ ARG POWERSHELL_VERSION
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install base system packages and PowerShell's runtime dependencies
+
 RUN apt-get -qq update && apt-get -qq install -y --no-install-recommends \
     ca-certificates \
     curl \
-    libc6 \
-    libgcc1 \
-    libgssapi-krb5-2 \
-    libstdc++6 \
-    zlib1g \
-    libicu74 \
-    libssl3 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 # Copy the built native library
 COPY --from=rebuild /usr/lib/libpsl-native.so /usr/lib/
 
-# Copy the .deb package and install PowerShell
+# Copy the .deb package and install PowerShell using apt (handles dependencies automatically)
 COPY --from=rebuild /tmp/artifacts/powershell_${POWERSHELL_VERSION#v}-1.deb_ppc64el.deb /tmp/powershell.deb
-RUN dpkg -i /tmp/powershell.deb && \
-    apt-get update && \
-    apt-get install -f -y && \
+RUN apt-get update && \
+    apt-get install -y /tmp/powershell.deb && \
     rm /tmp/powershell.deb
 
 # Set PATH for pwsh
