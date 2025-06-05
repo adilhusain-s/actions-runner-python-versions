@@ -1,31 +1,29 @@
-# -----------------------------
-# Stage 1: Base Build Environment
-# -----------------------------
-ARG UBUNTU_VERSION
+ARG UBUNTU_VERSION=24.04
+ARG TARGETARCH
+ARG POWERSHELL_VERSION=v7.5.1
+
+# Base stage for common build tools and dependencies.
 FROM ubuntu:${UBUNTU_VERSION} AS base
 
-ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
-# install dependencies
 RUN apt-get -qq update && \
     apt-get -qq install -y cmake g++ gcc git grep libicu-dev make patch unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# -----------------------------
-# Stage 2: Build PowerShell-Native
-# -----------------------------
+# Builds the native PowerShell library (libpsl-native).
 FROM base AS native
 
 ARG POWERSHELL_NATIVE_VERSION=v7.4.0
 ARG TARGETARCH
 
 COPY patch/powershell-native-${POWERSHELL_NATIVE_VERSION}.patch /tmp/
-WORKDIR /root
+WORKDIR /
 
-RUN git clone https://github.com/PowerShell/PowerShell-Native.git && \
-    cd PowerShell-Native && \
+# Clone, patch, build, and install libpsl-native.so
+RUN git clone https://github.com/PowerShell/PowerShell-Native.git /PowerShell-Native && \
+    cd /PowerShell-Native && \
     git checkout tags/${POWERSHELL_NATIVE_VERSION} -b ${TARGETARCH} && \
     git apply /tmp/powershell-native-${POWERSHELL_NATIVE_VERSION}.patch && \
     git submodule update --init && \
@@ -34,38 +32,35 @@ RUN git clone https://github.com/PowerShell/PowerShell-Native.git && \
     make && \
     (make test || cat Testing/Temporary/LastTest.log || true) && \
     cp ../powershell-unix/libpsl-native.so /usr/lib/
-# -----------------------------
-# Stage 3: Prepare PowerShell Source
-# -----------------------------
+
+# Prepares PowerShell source and installs the .NET SDK.
 FROM native AS source
 
-# Set PowerShell version and target architecture
-ARG POWERSHELL_VERSION=v7.5.1
+ARG POWERSHELL_VERSION
 ARG TARGETARCH
 
-# Copy patch and build helper scripts to the image
+# Copy PowerShell source patches and build scripts
 COPY patch/powershell-${TARGETARCH}-${POWERSHELL_VERSION}.patch /tmp/powershell.patch
 COPY patch/powershell-gen-${POWERSHELL_VERSION}.tar.gz /tmp/
-COPY build.sh /tmp/
 COPY update-dotnet-sdk-and-tfm.sh /tmp/
 COPY dotnet-install.sh /tmp/dotnet-install.sh
 
-# Make scripts executable
-RUN chmod +x /tmp/build.sh /tmp/update-dotnet-sdk-and-tfm.sh /tmp/dotnet-install.sh
+# Make build scripts executable
+RUN chmod +x /tmp/update-dotnet-sdk-and-tfm.sh /tmp/dotnet-install.sh
 
+# Install .NET SDK
 RUN /tmp/dotnet-install.sh --arch=${TARGETARCH}
 
-# -----------------------------
-# Stage 4: Build PowerShell (Initial Build)
-# -----------------------------
+# Performs an initial Debug build of PowerShell.
 FROM source AS build
 
 ARG TARGETARCH
-ARG POWERSHELL_VERSION=v7.5.1
-WORKDIR /root
+ARG POWERSHELL_VERSION
+WORKDIR /
 
-RUN  git clone https://github.com/PowerShell/PowerShell.git && \
-    cd PowerShell && \
+# Clone PowerShell, apply patches, and perform initial Debug build
+RUN git clone https://github.com/PowerShell/PowerShell.git /PowerShell && \
+    cd /PowerShell && \
     git checkout ${POWERSHELL_VERSION} -b ${TARGETARCH}-${POWERSHELL_VERSION} && \
     git apply /tmp/powershell.patch && \
     cp /tmp/update-dotnet-sdk-and-tfm.sh . && \
@@ -73,61 +68,84 @@ RUN  git clone https://github.com/PowerShell/PowerShell.git && \
     echo "📝 Final updated global.json:" && grep '"version":' global.json && \
     echo "📝 Sample updated TargetFrameworks:" && find . -name '*.csproj' -exec grep -H '<TargetFramework' {} \; && \
     tar -xzf /tmp/powershell-gen-${POWERSHELL_VERSION}.tar.gz -C .  && \
-    dotnet publish -c Debug -r linux-${TARGETARCH} --self-contained true 
+    dotnet publish -c Debug -r linux-${TARGETARCH} --self-contained true
 
-RUN     mkdir -p /usr/local/pwsh && \
-        cd PowerShell/src/powershell-unix/bin/Debug && \
-        NET_DIR=$(ls -d net* | head -n1) && \
-        cd "$NET_DIR"/linux-${TARGETARCH} && \
-        tar -cf - . | tar -xf - -C /usr/local/pwsh
+# Copy Debug build binaries for use in subsequent stages
+RUN mkdir -p /usr/local/pwsh && \
+    cd /PowerShell/src/powershell-unix/bin/Debug && \
+    NET_DIR=$(ls -d net* | head -n1) && \
+    cd "$NET_DIR"/linux-${TARGETARCH} && \
+    tar -cf - . | tar -xf - -C /usr/local/pwsh
 
-# -----------------------------
-# Stage 5: Rebuild PowerShell (Clone Again + build.sh)
-# -----------------------------
+# Performs a clean Release build and creates the .deb package.
 FROM source AS rebuild
 
-ARG POWERSHELL_VERSION=v7.5.1
+ARG POWERSHELL_VERSION
 ARG TARGETARCH
 
-WORKDIR /root
+WORKDIR /
 
-ENV PATH=${PATH}:/usr/local/pwsh
+ENV PATH=${PATH}:/usr/local/pwsh # Ensure pwsh is in PATH for this stage
 
-# Copy output from build stage
-COPY --from=build /usr/local/pwsh /usr/local/pwsh
-
-RUN rm -rf PowerShell && \
-    git clone https://github.com/PowerShell/PowerShell.git && \
-    cd PowerShell && \
+# Re-clone PowerShell, apply patches, and modify packaging scripts
+RUN rm -rf /PowerShell && \
+    git clone https://github.com/PowerShell/PowerShell.git /PowerShell && \
+    cd /PowerShell && \
     git checkout tags/${POWERSHELL_VERSION} -b ${TARGETARCH}-${POWERSHELL_VERSION} && \
     git apply /tmp/powershell.patch && \
+    # IMPORTANT: Adjust HostArchitecture for ppc64el packaging and ValidateSet
+    # Note: Forcing HostArchitecture to ppc64el might cause runtime issues if PowerShell/dotnet expect ppc64le.
+    sed -i 's/HostArchitecture = "amd64"/HostArchitecture = "ppc64el"/' /PowerShell/tools/packaging/packaging.psm1 && \
+    sed -i '/ValidateSet.*"arm64"/s/"arm64"/"arm64", "ppc64el"/' /PowerShell/tools/packaging/packaging.psm1 && \
     cp /tmp/update-dotnet-sdk-and-tfm.sh . && \
     ./update-dotnet-sdk-and-tfm.sh -g && \
     echo "📝 Final updated global.json:" && grep '"version":' global.json && \
     echo "📝 Sample updated TargetFrameworks:" && find . -name '*.csproj' -exec grep -H '<TargetFramework' {} \; && \
     tar -xzf /tmp/powershell-gen-${POWERSHELL_VERSION}.tar.gz -C .  && \
-    /tmp/build.sh
+    # Build PowerShell Release and create .deb package
+    pwsh -Command " \
+    Set-Location /PowerShell; \
+    Import-Module ./build.psm1; \
+    Import-Module ./tools/packaging/packaging.psm1; \
+    Start-PSBootstrap -Scenario Package; \
+    Start-PSBuild -Clean -PSModuleRestore -Runtime linux-${TARGETARCH} -Configuration Release; \
+    Start-PSPackage -Type deb -Version \"${POWERSHELL_VERSION#v}\" \
+    " && \
+    mkdir -p /tmp/artifacts && \
+    cp /PowerShell/powershell_${POWERSHELL_VERSION#v}-1.deb_ppc64el.deb /tmp/artifacts/
 
-RUN rm -rf /usr/local/pwsh/* && \
-    cd PowerShell/src/powershell-unix/bin/Debug/net*/linux-${TARGETARCH} && \
-    tar -cf - . | tar -xf - -C /usr/local/pwsh
-
-# -----------------------------
-# Final Stage: Runtime Image
-# -----------------------------
+# Final runtime image: Installs PowerShell from the .deb package.
 FROM ubuntu:${UBUNTU_VERSION} AS final
 
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Install base system packages and PowerShell's runtime dependencies
+RUN apt-get -qq update && apt-get -qq install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    libc6 \
+    libgcc1 \
+    libgssapi-krb5-2 \
+    libstdc++6 \
+    zlib1g \
+    libicu74 \
+    libssl3 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Copy the built native library
 COPY --from=rebuild /usr/lib/libpsl-native.so /usr/lib/
-COPY --from=rebuild /usr/local/pwsh /usr/local/pwsh
 
-COPY dotnet-install.sh /tmp/dotnet-install.sh
-RUN chmod +x /tmp/dotnet-install.sh
-RUN /tmp/dotnet-install.sh  --arch=${TARGETARCH}
+# Copy the .deb package and install PowerShell
+COPY --from=rebuild /tmp/artifacts/powershell_${POWERSHELL_VERSION#v}-1.deb_ppc64el.deb /tmp/powershell.deb
+RUN dpkg -i /tmp/powershell.deb && \
+    apt-get update && \
+    apt-get install -f -y && \
+    rm /tmp/powershell.deb
 
-ENV PATH="${PATH}:/usr/local/pwsh"
+# Set PATH for pwsh
+ENV PATH="${PATH}:/usr/bin"
+
+# Verify PowerShell installation
 RUN pwsh --version
 CMD ["/bin/bash"]
