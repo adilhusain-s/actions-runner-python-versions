@@ -112,7 +112,8 @@ RUN chmod +x /tmp/update-csproj-rtr.sh && \
     # Build PowerShell Release and create .deb package
     pwsh -Command " \
     Set-Location /PowerShell; \
-    Import-Module ./build.psm1; \
+    Import-Module ./build.psm1 -ArgumentList \$true; \
+    Start-PSBuild -UseNuGetOrg; \
     Import-Module ./tools/packaging/packaging.psm1; \
     Start-PSBootstrap -Scenario Package; \
     Start-PSBuild -Clean -PSModuleRestore -Runtime linux-${TARGETARCH} -Configuration Release; \
