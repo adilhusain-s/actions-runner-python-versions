@@ -88,13 +88,14 @@ WORKDIR /
 ENV PATH=${PATH}:/usr/local/pwsh # Ensure pwsh is in PATH for this stage
 
 # Re-clone PowerShell, apply patches, and modify packaging scripts
-RUN rm -rf /PowerShell && \
+COPY update-csproj-rtr.sh /tmp/
+RUN chmod +x /tmp/update-csproj-rtr.sh && \
+    rm -rf /PowerShell && \
     git clone https://github.com/PowerShell/PowerShell.git /PowerShell && \
     cd /PowerShell && \
     git checkout tags/${POWERSHELL_VERSION} -b ${TARGETARCH}-${POWERSHELL_VERSION} && \
     git apply /tmp/powershell.patch && \
     # IMPORTANT: Adjust HostArchitecture for ppc64el packaging and ValidateSet
-    # Note: Forcing HostArchitecture to ppc64el might cause runtime issues if PowerShell/dotnet expect ppc64le.
     sed -i 's/HostArchitecture = "amd64"/HostArchitecture = "ppc64el"/' /PowerShell/tools/packaging/packaging.psm1 && \
     sed -i '/ValidateSet.*"arm64"/s/"arm64"/"arm64", "ppc64el"/' /PowerShell/tools/packaging/packaging.psm1 && \
     cp /tmp/update-dotnet-sdk-and-tfm.sh . && \
@@ -102,6 +103,8 @@ RUN rm -rf /PowerShell && \
     echo "📝 Final updated global.json:" && grep '"version":' global.json && \
     echo "📝 Sample updated TargetFrameworks:" && find . -name '*.csproj' -exec grep -H '<TargetFramework' {} \; && \
     tar -xzf /tmp/powershell-gen-${POWERSHELL_VERSION}.tar.gz -C .  && \
+    # Execute update-csproj-rtr.sh before release and packaging
+    /tmp/update-csproj-rtr.sh && \
     # Build PowerShell Release and create .deb package
     pwsh -Command " \
     Set-Location /PowerShell; \
