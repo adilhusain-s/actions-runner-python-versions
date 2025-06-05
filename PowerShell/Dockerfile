@@ -75,7 +75,7 @@ RUN mkdir -p /usr/local/pwsh && \
     cd /PowerShell/src/powershell-unix/bin/Debug && \
     NET_DIR=$(ls -d net* | head -n1) && \
     cd "$NET_DIR"/linux-${TARGETARCH} && \
-    cp -a . /usr/local/pwsh
+    cp -r ./* /usr/local/pwsh
 
 # Performs a clean Release build and creates the .deb package.
 FROM source AS rebuild
