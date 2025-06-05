@@ -85,7 +85,8 @@ ARG TARGETARCH
 
 WORKDIR /
 
-ENV PATH=${PATH}:/usr/local/pwsh # Ensure pwsh is in PATH for this stage
+ENV PATH=${PATH}:/usr/local/pwsh
+# Ensure pwsh is in PATH for this stage
 
 # Re-clone PowerShell, apply patches, and modify packaging scripts
 COPY update-csproj-rtr.sh /tmp/
