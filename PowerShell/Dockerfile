@@ -124,8 +124,10 @@ RUN chmod +x /tmp/update-csproj-rtr.sh && \
     cp /PowerShell/powershell_${POWERSHELL_VERSION#v}-1.deb_ppc64el.deb /tmp/artifacts/
 
 # Final runtime image: Installs PowerShell from the .deb package.
-FROM ubuntu:${UBUNTU_VERSION} AS final
 
+
+FROM ubuntu:${UBUNTU_VERSION} AS final
+ARG POWERSHELL_VERSION
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
