@@ -108,7 +108,7 @@ RUN chmod +x /tmp/update-csproj-rtr.sh && \
     tar -xzf /tmp/powershell-gen-${POWERSHELL_VERSION}.tar.gz -C .  && \
     # Execute update-csproj-rtr.sh as ./update-csproj-rtr.sh in /PowerShell before release and packaging
     cp /tmp/update-csproj-rtr.sh . && \
-    ./update-csproj-rtr.sh && \
+    ./update-csproj-rtr.sh -e && \
     # Build PowerShell Release and create .deb package
     pwsh -Command " \
     Set-Location /PowerShell; \
