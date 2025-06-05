@@ -93,7 +93,7 @@ ENV PATH=${PATH}:/usr/local/pwsh
 # Re-clone PowerShell, apply patches, and modify packaging scripts
 COPY update-csproj-rtr.sh /tmp/
 RUN chmod +x /tmp/update-csproj-rtr.sh && \
-    apt-et  install -qy sudo  && \
+    apt-get install -qy sudo  && \
     rm -rf /PowerShell && \
     git clone https://github.com/PowerShell/PowerShell.git /PowerShell && \
     cd /PowerShell && \
