@@ -85,7 +85,9 @@ ARG TARGETARCH
 
 WORKDIR /
 
+# Add /usr/local/pwsh to PATH and symlink pwsh binary for this stage
 ENV PATH=${PATH}:/usr/local/pwsh
+RUN ln -sf /usr/local/pwsh/pwsh /usr/bin/pwsh
 # Ensure pwsh is in PATH for this stage
 
 # Re-clone PowerShell, apply patches, and modify packaging scripts
