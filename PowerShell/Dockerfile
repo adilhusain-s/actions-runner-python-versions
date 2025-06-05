@@ -86,9 +86,9 @@ ARG TARGETARCH
 WORKDIR /
 
 # Add /usr/local/pwsh to PATH and symlink pwsh binary for this stage
+# Copy pwsh binary from build stage and ensure it's in PATH
+COPY --from=build /usr/local/pwsh /usr/local/pwsh
 ENV PATH=${PATH}:/usr/local/pwsh
-RUN ln -sf /usr/local/pwsh/pwsh /usr/bin/pwsh
-# Ensure pwsh is in PATH for this stage
 
 # Re-clone PowerShell, apply patches, and modify packaging scripts
 COPY update-csproj-rtr.sh /tmp/
@@ -106,8 +106,9 @@ RUN chmod +x /tmp/update-csproj-rtr.sh && \
     echo "📝 Final updated global.json:" && grep '"version":' global.json && \
     echo "📝 Sample updated TargetFrameworks:" && find . -name '*.csproj' -exec grep -H '<TargetFramework' {} \; && \
     tar -xzf /tmp/powershell-gen-${POWERSHELL_VERSION}.tar.gz -C .  && \
-    # Execute update-csproj-rtr.sh before release and packaging
-    /tmp/update-csproj-rtr.sh && \
+    # Execute update-csproj-rtr.sh as ./update-csproj-rtr.sh in /PowerShell before release and packaging
+    cp /tmp/update-csproj-rtr.sh . && \
+    ./update-csproj-rtr.sh && \
     # Build PowerShell Release and create .deb package
     pwsh -Command " \
     Set-Location /PowerShell; \
