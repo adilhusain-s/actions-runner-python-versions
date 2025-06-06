@@ -71,7 +71,8 @@ jobs:
 
   release-assets:
     needs: [build-and-release-matrix, get-tags]
-    # ...existing code...
+    concurrency: 
+      group: manifest-release
     strategy:
       matrix:
         tag: ${{ fromJson(needs.get-tags.outputs.tags_json) }}
