@@ -103,4 +103,4 @@ COPY --from=builder /tmp/artifact /tmp/artifact
 #delete python source  code 
 RUN rm -f /opt/Python/${PYTHON_VERSION}/${TARGETARCH}/Python-${PYTHON_VERSION}.tgz
 
-CMD ["/bin/bash"]
+CMD ["python"]
