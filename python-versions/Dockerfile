@@ -52,13 +52,28 @@ WORKDIR /python-versions
 
 RUN git checkout "${ACTIONS_PYTHON_VERSIONS}" && \
     git submodule init && \
+
     git submodule update
 
-# Build Python
-# Set RUNNER_TEMP env var globally in this stage
+# Set up Python installation environment variables using build args
+ENV PYTHON_INSTALL_DIR=/opt/Python/${PYTHON_VERSION}/${TARGETARCH}
+ENV pythonLocation=${PYTHON_INSTALL_DIR}
+ENV Python_ROOT_DIR=${PYTHON_INSTALL_DIR}
+ENV Python3_ROOT_DIR=${PYTHON_INSTALL_DIR}
+ENV PKG_CONFIG_PATH=${PYTHON_INSTALL_DIR}/lib/pkgconfig
+ENV LD_LIBRARY_PATH=${PYTHON_INSTALL_DIR}/lib
+ENV PATH=${PYTHON_INSTALL_DIR}/bin:$PATH
+ENV RUNNER_TOOL_CACHE=/opt
+ENV AGENT_TOOLSDIRECTORY=/opt
 ENV RUNNER_TEMP=/tmp
 # Set MAKEFLAGS for parallel make in the RUN instruction
 RUN export MAKEFLAGS="-j $(nproc)" && pwsh ./builders/build-python.ps1 ${PYTHON_VERSION} linux ${TARGETARCH}
+
+# Run Python tests after build (ensure working directory is tests)
+WORKDIR /python-versions/tests
+RUN pwsh -Command "Install-Module -Name Pester -Force -Scope CurrentUser -SkipPublisherCheck"
+RUN cp /tmp/work/build_output.txt /tmp/
+RUN pwsh python-tests.ps1 ${PYTHON_VERSION} linux ${TARGETARCH}
 
 # ================= FINAL STAGE =====================
 FROM ubuntu:${UBUNTU_VERSION} AS final
