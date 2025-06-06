@@ -70,6 +70,8 @@ ENV RUNNER_TEMP=/tmp
 RUN export MAKEFLAGS="-j $(nproc)" && pwsh ./builders/build-python.ps1 ${PYTHON_VERSION} linux ${TARGETARCH}
 
 # Run Python tests after build (ensure working directory is tests)
+WORKDIR /tmp/work
+RUN bash setup.sh
 WORKDIR /python-versions/tests
 RUN pwsh -Command "Install-Module -Name Pester -Force -Scope CurrentUser -SkipPublisherCheck"
 RUN cp /tmp/work/build_output.txt /tmp/
