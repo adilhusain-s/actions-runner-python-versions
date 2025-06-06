@@ -82,6 +82,21 @@ FROM ubuntu:${UBUNTU_VERSION} AS final
 
 ARG UBUNTU_VERSION
 
+
+# Copy Python installation for the specific version and architecture
+ARG PYTHON_VERSION
+ARG TARGETARCH
+COPY --from=builder /opt/Python/${PYTHON_VERSION}/${TARGETARCH} /opt/Python/${PYTHON_VERSION}/${TARGETARCH}
+
+# Set up Python environment variables for the specific version
+ENV PYTHON_INSTALL_DIR=/opt/Python/${PYTHON_VERSION}/${TARGETARCH}
+ENV pythonLocation=${PYTHON_INSTALL_DIR}
+ENV Python_ROOT_DIR=${PYTHON_INSTALL_DIR}
+ENV Python3_ROOT_DIR=${PYTHON_INSTALL_DIR}
+ENV PKG_CONFIG_PATH=${PYTHON_INSTALL_DIR}/lib/pkgconfig
+ENV LD_LIBRARY_PATH=${PYTHON_INSTALL_DIR}/lib
+ENV PATH=${PYTHON_INSTALL_DIR}/bin:$PATH
+
 # Copy artifacts
 COPY --from=builder /tmp/artifact /tmp/artifact
 
