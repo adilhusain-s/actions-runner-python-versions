@@ -70,11 +70,11 @@ ENV RUNNER_TEMP=/tmp
 RUN export MAKEFLAGS="-j $(nproc)" && pwsh ./builders/build-python.ps1 ${PYTHON_VERSION} linux ${TARGETARCH}
 
 # Run Python tests after build (ensure working directory is tests)
-WORKDIR /tmp/work
+WORKDIR ${RUNNER_TEMP}/work
 RUN bash setup.sh
 WORKDIR /python-versions/tests
 RUN pwsh -Command "Install-Module -Name Pester -Force -Scope CurrentUser -SkipPublisherCheck"
-RUN cp /tmp/work/build_output.txt /tmp/
+RUN cp $RUNNER_TEMP/work/build_output.txt $RUNNER_TEMP/
 RUN pwsh python-tests.ps1 ${PYTHON_VERSION} linux ${TARGETARCH}
 
 # ================= FINAL STAGE =====================
@@ -83,12 +83,12 @@ FROM ubuntu:${UBUNTU_VERSION} AS final
 ARG UBUNTU_VERSION
 
 
-# Copy Python installation for the specific version and architecture
+# Copy Python installation 
 ARG PYTHON_VERSION
 ARG TARGETARCH
 COPY --from=builder /opt/Python/${PYTHON_VERSION}/${TARGETARCH} /opt/Python/${PYTHON_VERSION}/${TARGETARCH}
 
-# Set up Python environment variables for the specific version
+# Set up Python environment variables 
 ENV PYTHON_INSTALL_DIR=/opt/Python/${PYTHON_VERSION}/${TARGETARCH}
 ENV pythonLocation=${PYTHON_INSTALL_DIR}
 ENV Python_ROOT_DIR=${PYTHON_INSTALL_DIR}
