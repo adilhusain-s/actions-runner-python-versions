@@ -21,12 +21,9 @@ jobs:
       - name: Set up Python
         uses: adilhusain-s/setup-python@main
         with:
-          python-version: 3.13.3
+          python-version: 3.13.4
           architecture: ${{ matrix.arch }}
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libffi-dev build-essential zlib1g-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev liblzma-dev
+      
       - name: Test Python installation
         run: |
           python --version
