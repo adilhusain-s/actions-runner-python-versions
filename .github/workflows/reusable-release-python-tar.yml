@@ -1,29 +1,15 @@
 name: Reusable Release Python Tar
 
 on:
-  workflow_dispatch: # Allows manual testing of this reusable workflow directly
+  workflow_call:
     inputs:
       tag:
         description: "Release tag (e.g., 3.13.3)"
-        required: true
-        type: string
-      arch: # Input for the architecture
-        description: "Architecture (e.g., ppc64le, s390x)"
-        required: true
-        type: string
-  workflow_call: # How the main workflow calls this reusable workflow
-    inputs:
-      tag:
-        description: "Release tag (e.g., 3.13.3)"
-        required: true
-        type: string
-      arch: # Input for the architecture
-        description: "Architecture (e.g., ppc64le, s390x)"
         required: true
         type: string
     secrets:
       GH_TOKEN:
-        required: true # Make required when called by other workflows
+        required: true
 
 jobs:
   release-assets-and-update-manifest:
@@ -33,10 +19,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ./artifact
-          # Pattern to download artifacts specific to this tag.
-          # The `merge-multiple: true` will collect all artifacts from the *current* workflow run
-          # matching this pattern into the './artifact' directory.
-          pattern: python-tar-${{ inputs.tag }}-* merge-multiple: true
+          pattern: python-tar-${{ inputs.tag }}-*
+          merge-multiple: true
 
       - name: List downloaded files (debugging step)
         run: ls -R ./artifact
