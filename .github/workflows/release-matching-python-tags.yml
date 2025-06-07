@@ -90,6 +90,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Fetch and pull with rebase
+        run: |
+          git fetch --all
+          git pull --rebase
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -98,9 +103,6 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r .github/scripts/requirements.txt
-
-      - name: Pull latest arch-specific manifests
-        run: git pull
 
       - name: Download upstream versions-manifest.json
         run: |
