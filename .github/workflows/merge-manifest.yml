@@ -13,8 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Print git status before merge
-        run: git status
 
       - name: Fetch and pull with rebase
         run: |
@@ -43,13 +41,14 @@ jobs:
             fi
           done
 
+
+      - name: Set git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Commit and push main manifest
         run: |
-          git status
-          git add -A
-          git status
-          git commit -am "Update main manifest [skip ci]" || echo "No changes to commit"
+          git add versions-manifest.json
+          git commit -m "Update main manifest [skip ci]" || echo "No changes to commit"
           git push
-
-      - name: Print git status
-        run: git status
