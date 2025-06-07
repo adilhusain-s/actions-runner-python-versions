@@ -1,21 +1,29 @@
 name: Reusable Release Python Tar
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual testing of this reusable workflow directly
     inputs:
       tag:
         description: "Release tag (e.g., 3.13.3)"
         required: true
         type: string
-  workflow_call:
+      arch: # Input for the architecture
+        description: "Architecture (e.g., ppc64le, s390x)"
+        required: true
+        type: string
+  workflow_call: # How the main workflow calls this reusable workflow
     inputs:
       tag:
         description: "Release tag (e.g., 3.13.3)"
+        required: true
+        type: string
+      arch: # Input for the architecture
+        description: "Architecture (e.g., ppc64le, s390x)"
         required: true
         type: string
     secrets:
       GH_TOKEN:
-        required: false
+        required: true # Make required when called by other workflows
 
 jobs:
   release-assets-and-update-manifest:
@@ -25,8 +33,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ./artifact
-          pattern: python-tar-${{ inputs.tag }}-*
-          merge-multiple: true
+          # Pattern to download artifacts specific to this tag.
+          # The `merge-multiple: true` will collect all artifacts from the *current* workflow run
+          # matching this pattern into the './artifact' directory.
+          pattern: python-tar-${{ inputs.tag }}-* merge-multiple: true
 
       - name: List downloaded files (debugging step)
         run: ls -R ./artifact
@@ -37,14 +47,18 @@ jobs:
         with:
           tag_name: ${{ inputs.tag }}
           name: Release ${{ inputs.tag }}
-          files: ./artifact/**/*.tar.gz
+          files: ./artifact/**/*.tar.gz # Uploads all .tar.gz files found in the artifact path
           draft: false
           prerelease: false
+          token: ${{ secrets.GH_TOKEN }} # Use the token passed from the calling workflow
 
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }} # Token needed for push operations
 
       - name: Pull latest changes
+        # Ensure we have the latest state of the repo, especially the versions-manifests folder
         run: git pull
 
       - name: Set up Python
@@ -58,56 +72,84 @@ jobs:
           pip install typer requests pydantic
         working-directory: .github/scripts
 
-      - name: Create arch-specific manifest for released asset
+      - name: Create, commit, and push arch-specific manifest for released asset
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           assets_json='${{ steps.create_release.outputs.assets }}'
           asset_count=$(echo "$assets_json" | jq length)
 
+          # Use a Bash associative array to group assets by their architecture
+          declare -A ARCH_ASSETS_MAP
+
+          # First pass: Group asset indices by unique architecture from the downloaded files
+          # This handles cases where a single 'tag' might have been built for multiple platform-versions
+          # (e.g., 3.13.3-linux-22.04-ppc64le.tar.gz and 3.13.3-linux-24.04-ppc64le.tar.gz)
+          # within the same 'arch'.
           for i in $(seq 0 $((asset_count - 1))); do
             asset_name=$(echo "$assets_json" | jq -r ".[$i].name")
-            download_url=$(echo "$assets_json" | jq -r ".[$i].browser_download_url")
-
-            # Parse asset name: python-tag-linux-platform_version-arch.tar.gz
             base_name="${asset_name#python-}"
             base_name="${base_name%.tar.gz}"
+            IFS='-' read -r _ _ _ current_arch <<< "$base_name" # Only read the arch part
 
-            IFS='-' read -r _ platform platform_version arch <<< "$base_name"
-
-            manifest_file="versions-manifests/${{ inputs.tag }}-${arch}.json"
-
-            # Ensure the directory exists
-            mkdir -p versions-manifests
-
-            # Always create a new manifest file for this release
-            echo "[]" > "$manifest_file"
-
-            echo "::group::Parsed asset metadata"
-            echo "Asset: $asset_name"
-            echo "Version: ${{ inputs.tag }}"
-            echo "Platform: $platform"
-            echo "Platform version: $platform_version"
-            echo "Arch: $arch"
-            echo "Download URL: $download_url"
-            echo "::endgroup::"
-
-            python .github/scripts/manifest_tools.py update_version \
-              "$manifest_file" \
-              --version "${{ inputs.tag }}" \
-              --filename "$asset_name" \
-              --arch "$arch" \
-              --platform "$platform" \
-              --platform-version "$platform_version" \
-              --download-url "$download_url" \
-              --stable
+            ARCH_ASSETS_MAP["$current_arch"]+=" $i" # Store asset index for this arch
           done
 
-      - name: Commit and push updated arch-specific manifests
-        run: |
+          # Ensure the dedicated manifests directory exists
+          mkdir -p versions-manifests
+
+          # Second pass: Process each unique architecture found and build its manifest file
+          # We iterate over the architectures identified from the downloaded artifacts
+          for arch_key in "${!ARCH_ASSETS_MAP[@]}"; do
+            MANIFEST_FILE="versions-manifests/${{ inputs.tag }}-${arch_key}.json"
+            
+            echo "::group::Processing manifest for tag ${{ inputs.tag }}, arch ${arch_key}"
+
+            # Initialize the manifest file for this specific tag-arch combination.
+            # This will create a new empty file. If it already exists from a previous run, it will be overwritten.
+            echo "[]" > "$MANIFEST_FILE" 
+
+            # Iterate over asset indices that belong to this specific architecture
+            for asset_idx in ${ARCH_ASSETS_MAP["$arch_key"]}; do
+              asset_name=$(echo "$assets_json" | jq -r ".[$asset_idx].name")
+              download_url=$(echo "$assets_json" | jq -r ".[$asset_idx].browser_download_url")
+
+              # Parse asset name again to get all components for the manifest entry
+              base_name="${asset_name#python-}"
+              base_name="${base_name%.tar.gz}"
+              IFS='-' read -r _ platform platform_version actual_arch <<< "$base_name"
+
+              echo "  - Asset: $asset_name"
+              echo "    Platform: $platform"
+              echo "    Platform version: $platform_version"
+              echo "    Download URL: $download_url"
+
+              # Use your Python script to update the specific manifest file
+              python .github/scripts/manifest_tools.py update_version \
+                "$MANIFEST_FILE" \
+                --version "${{ inputs.tag }}" \
+                --filename "$asset_name" \
+                --arch "$actual_arch" \
+                --platform "$platform" \
+                --platform-version "$platform_version" \
+                --download-url "$download_url" \
+                --stable
+            done
+            echo "::endgroup::"
+          done
+
+          # Final step: Commit and push ALL modified arch-specific manifest files in one atomic Git operation.
+          # This is done once after all unique arch manifests for this run have been prepared.
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "versions-manifests/${{ inputs.tag }}-${arch}.json"
-          git commit -m "Update manifest for tag ${{ inputs.tag }} arch ${{ inputs.arch }} [skip ci]" || echo "No changes to commit"
-          git pull --rebase
+          
+          # Add all JSON files within the versions-manifests directory that were modified
+          git add versions-manifests/*.json 
+          
+          # Only commit if there are actual changes
+          git diff --staged --quiet || git commit -m "Update arch manifests for tag ${{ inputs.tag }} [skip ci]"
+          
+          # Rebase before pushing to gracefully handle any concurrent pushes from other workflow runs
+          # that might have pushed different arch-specific manifests in parallel.
+          git pull --rebase 
           git push
