@@ -135,5 +135,17 @@ jobs:
           
           # Rebase before pushing to gracefully handle any concurrent pushes from other workflow runs
           # that might have pushed different arch-specific manifests in parallel.
-          git pull --rebase 
-          git push
+          git pull --rebase
+          max_retries=10
+          count=0
+          until git push; do
+            count=$((count + 1))
+            if [ $count -ge $max_retries ]; then
+              echo "Push failed after $max_retries attempts."
+              exit 1
+            fi
+            echo "Push failed, attempting to fetch, rebase and retry ($count/$max_retries)..."
+            git fetch origin
+            git pull --rebase
+            sleep 1
+          done
