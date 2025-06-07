@@ -71,11 +71,41 @@ jobs:
 
   release-assets:
     needs: [build-and-release-matrix, get-tags]
-    concurrency: 
-      group: manifest-release
     strategy:
       matrix:
         tag: ${{ fromJson(needs.get-tags.outputs.tags_json) }}
     uses: ./.github/workflows/reusable-release-python-tar.yml
     with:
       tag: ${{ matrix.tag }}
+
+  merge-all-manifests:
+    needs: release-assets
+    runs-on: ubuntu-latest
+    concurrency:
+      group: main-manifest-merge
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pull latest arch-specific manifests
+        run: git pull
+
+      - name: Download upstream versions-manifest.json
+        run: |
+          curl -sSL -o versions-manifest.json "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json"
+
+      - name: Merge all arch-specific manifests into main manifest
+        run: |
+          for manifest_file in versions-manifests/*.json; do
+            if [ -f "$manifest_file" ]; then
+              echo "Merging $manifest_file into versions-manifest.json"
+              python .github/scripts/manifest_tools.py merge versions-manifest.json "$manifest_file" versions-manifest.json
+            fi
+          done
+
+      - name: Commit and push main manifest
+        run: |
+          git add versions-manifest.json
+          git commit -m "Update main manifest [skip ci]" || echo "No changes to commit"
+          git push

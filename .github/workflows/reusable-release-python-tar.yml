@@ -58,11 +58,7 @@ jobs:
           pip install typer requests pydantic
         working-directory: .github/scripts
 
-      - name: Download upstream versions-manifest.json
-        run: |
-          curl -sSL -o versions-manifest.json "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json"
-
-      - name: Update manifests for all released assets
+      - name: Create arch-specific manifest for released asset
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
@@ -79,12 +75,13 @@ jobs:
 
             IFS='-' read -r _ platform platform_version arch <<< "$base_name"
 
-            manifest_file="versions-manifest-${arch}.json"
+            manifest_file="versions-manifests/${{ inputs.tag }}-${arch}.json"
 
-            # Prepare arch-specific manifest if not exists
-            if [ ! -f "$manifest_file" ]; then
-              echo "[]" > "$manifest_file"
-            fi
+            # Ensure the directory exists
+            mkdir -p versions-manifests
+
+            # Always create a new manifest file for this release
+            echo "[]" > "$manifest_file"
 
             echo "::group::Parsed asset metadata"
             echo "Asset: $asset_name"
@@ -106,19 +103,11 @@ jobs:
               --stable
           done
 
-      - name: Merge all arch-specific manifests into main manifest
-        run: |
-          for manifest in versions-manifest-*.json; do
-            if [[ "$manifest" != "versions-manifest.json" ]]; then
-              python .github/scripts/manifest_tools.py merge versions-manifest.json "$manifest" versions-manifest.json
-            fi
-          done
-
-      - name: Commit and push updated manifests
+      - name: Commit and push updated arch-specific manifests
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add versions-manifest.json versions-manifest-*.json
-          git commit -m "Update manifests for tag ${{ inputs.tag }} [skip ci]" || echo "No changes to commit"
+          git add "versions-manifests/${{ inputs.tag }}-${arch}.json"
+          git commit -m "Update manifest for tag ${{ inputs.tag }} arch ${{ inputs.arch }} [skip ci]" || echo "No changes to commit"
           git pull --rebase
           git push
