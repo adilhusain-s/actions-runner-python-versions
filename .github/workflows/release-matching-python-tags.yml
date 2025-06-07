@@ -77,6 +77,8 @@ jobs:
     uses: ./.github/workflows/reusable-release-python-tar.yml
     with:
       tag: ${{ matrix.tag }}
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   merge-all-manifests:
     needs: release-assets
