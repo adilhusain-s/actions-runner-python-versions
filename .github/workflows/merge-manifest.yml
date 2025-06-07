@@ -45,8 +45,10 @@ jobs:
 
       - name: Commit and push main manifest
         run: |
-          git add ./versions-manifest.json
-          git commit -m "Update main manifest [skip ci]" || echo "No changes to commit"
+          git status
+          git add -A
+          git status
+          git commit -am "Update main manifest [skip ci]" || echo "No changes to commit"
           git push
 
       - name: Print git status
