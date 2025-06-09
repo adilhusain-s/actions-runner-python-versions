@@ -2964,6 +2964,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.11-15433310049/python-3.12.11-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.12.11-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.11/python-3.12.11-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.11-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.11/python-3.12.11-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3041,6 +3055,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.10-14343898437/python-3.12.10-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.10-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.10/python-3.12.10-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.10-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.10/python-3.12.10-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3118,6 +3146,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.9-13149478207/python-3.12.9-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.9-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.9/python-3.12.9-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.9-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.9/python-3.12.9-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3195,6 +3237,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.8-12154062663/python-3.12.8-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.8-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.8/python-3.12.8-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.8-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.8/python-3.12.8-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3272,6 +3328,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.7-11128208086/python-3.12.7-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.7-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.7/python-3.12.7-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.7-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.7/python-3.12.7-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3349,6 +3419,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.6-10765725458/python-3.12.6-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.6-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.6/python-3.12.6-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.6-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.6/python-3.12.6-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3426,6 +3510,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.5-10375840348/python-3.12.5-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.5-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.5/python-3.12.5-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.5-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.5/python-3.12.5-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3503,6 +3601,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.4-9947065640/python-3.12.4-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.4-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.4/python-3.12.4-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.4-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.4/python-3.12.4-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3580,6 +3692,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.3-11057844995/python-3.12.3-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.3-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.3/python-3.12.3-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.3-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.3/python-3.12.3-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3657,6 +3783,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.2-11057786931/python-3.12.2-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.2-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.2/python-3.12.2-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.2-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.2/python-3.12.2-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3734,6 +3874,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.1-11057762749/python-3.12.1-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.1-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.1/python-3.12.1-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.1-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.1/python-3.12.1-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -3811,6 +3965,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.12.0-11057302691/python-3.12.0-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.12.0-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.0/python-3.12.0-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.12.0-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.12.0/python-3.12.0-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -4532,6 +4700,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.13-15433298024/python-3.11.13-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.11.13-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.13/python-3.11.13-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.13-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.13/python-3.11.13-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -4574,6 +4756,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.12-14343939122/python-3.11.12-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.11.12-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.12/python-3.11.12-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.12-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.12/python-3.11.12-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -4616,6 +4812,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.11-12160100664/python-3.11.11-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.11.11-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.11/python-3.11.11-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.11-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.11/python-3.11.11-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -4658,6 +4868,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.10-10765870205/python-3.11.10-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.11.10-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.10/python-3.11.10-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.10-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.10/python-3.11.10-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -4735,6 +4959,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.9-9947079978/python-3.11.9-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.9-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.9/python-3.11.9-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.9-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.9/python-3.11.9-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -4812,6 +5050,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.8-11113201752/python-3.11.8-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.8-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.8/python-3.11.8-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.8-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.8/python-3.11.8-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -4889,6 +5141,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.7-11113197120/python-3.11.7-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.7-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.7/python-3.11.7-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.7-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.7/python-3.11.7-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -4966,6 +5232,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.6-11113179737/python-3.11.6-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.6-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.6/python-3.11.6-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.6-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.6/python-3.11.6-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -5043,6 +5323,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.5-11113174019/python-3.11.5-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.5-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.5/python-3.11.5-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.5-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.5/python-3.11.5-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -5120,6 +5414,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.4-11113170699/python-3.11.4-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.4-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.4/python-3.11.4-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.4-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.4/python-3.11.4-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -5197,6 +5505,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.3-11059198104/python-3.11.3-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.3-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.3/python-3.11.3-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.3-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.3/python-3.11.3-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -5274,6 +5596,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.2-11059137522/python-3.11.2-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.2-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.2/python-3.11.2-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.2-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.2/python-3.11.2-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -5351,6 +5687,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.1-11058799881/python-3.11.1-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.1-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.1/python-3.11.1-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.1-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.1/python-3.11.1-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -5428,6 +5778,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.11.0-11058707212/python-3.11.0-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.11.0-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.0/python-3.11.0-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.11.0-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.11.0/python-3.11.0-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6107,6 +6471,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.18-15433209320/python-3.10.18-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.10.18-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.18/python-3.10.18-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.18-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.18/python-3.10.18-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6156,6 +6534,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.17-14343836466/python-3.10.17-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.10.17-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.17/python-3.10.17-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.17-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.17/python-3.10.17-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6205,6 +6597,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.16-12302993382/python-3.10.16-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.10.16-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.16/python-3.10.16-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.16-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.16/python-3.10.16-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6254,6 +6660,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.15-10765692022/python-3.10.15-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.10.15-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.15/python-3.10.15-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.15-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.15/python-3.10.15-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6303,6 +6723,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.14-9962525809/python-3.10.14-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.10.14-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.14/python-3.10.14-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.14-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.14/python-3.10.14-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6352,6 +6786,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.13-11113412466/python-3.10.13-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.10.13-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.13/python-3.10.13-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.13-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.13/python-3.10.13-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6401,6 +6849,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.12-11114375244/python-3.10.12-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.10.12-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.12/python-3.10.12-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.12-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.12/python-3.10.12-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6471,6 +6933,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.11-11114431484/python-3.10.11-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.11-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.11/python-3.10.11-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.11-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.11/python-3.10.11-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6541,6 +7017,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.10-11156136298/python-3.10.10-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.10-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.10/python-3.10.10-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.10-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.10/python-3.10.10-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6611,6 +7101,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.9-11156110083/python-3.10.9-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.9-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.9/python-3.10.9-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.9-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.9/python-3.10.9-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6681,6 +7185,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.8-11157050441/python-3.10.8-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.8-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.8/python-3.10.8-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.8-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.8/python-3.10.8-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6751,6 +7269,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.7-11156088973/python-3.10.7-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.7-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.7/python-3.10.7-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.7-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.7/python-3.10.7-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6821,6 +7353,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.6-11156080153/python-3.10.6-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.6-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.6/python-3.10.6-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.6-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.6/python-3.10.6-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6891,6 +7437,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.5-11156057491/python-3.10.5-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.5-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.5/python-3.10.5-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.5-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.5/python-3.10.5-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -6961,6 +7521,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.4-11156037683/python-3.10.4-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.4-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.4/python-3.10.4-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.4-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.4/python-3.10.4-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7003,6 +7577,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.3-2000219088/python-3.10.3-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.3-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.3/python-3.10.3-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.3-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.3/python-3.10.3-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7045,6 +7633,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.2-1805098134/python-3.10.2-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.2-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.2/python-3.10.2-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.2-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.2/python-3.10.2-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7087,6 +7689,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.1-120613/python-3.10.1-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.1-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.1/python-3.10.1-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.1-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.1/python-3.10.1-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7129,6 +7745,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.10.0-117927/python-3.10.0-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.10.0-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.0/python-3.10.0-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.10.0-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.10.0/python-3.10.0-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7787,6 +8417,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.23-15433290661/python-3.9.23-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.23-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.23/python-3.9.23-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.23-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.23/python-3.9.23-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7836,6 +8480,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.22-14344111503/python-3.9.22-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.22-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.22/python-3.9.22-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.22-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.22/python-3.9.22-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7885,6 +8543,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.21-12303000710/python-3.9.21-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.21-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.21/python-3.9.21-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.21-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.21/python-3.9.21-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7934,6 +8606,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.20-10765735733/python-3.9.20-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.20-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.20/python-3.9.20-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.20-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.20/python-3.9.20-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -7983,6 +8669,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.19-9962534424/python-3.9.19-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.19-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.19/python-3.9.19-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.19-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.19/python-3.9.19-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8032,6 +8732,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.18-11183952707/python-3.9.18-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.18-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.18/python-3.9.18-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.18-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.18/python-3.9.18-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8081,6 +8795,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.17-11183917965/python-3.9.17-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.17-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.17/python-3.9.17-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.17-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.17/python-3.9.17-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8130,6 +8858,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.16-11183815643/python-3.9.16-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.16-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.16/python-3.9.16-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.16-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.16/python-3.9.16-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8179,6 +8921,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.15-11183782044/python-3.9.15-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.15-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.15/python-3.9.15-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.15-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.15/python-3.9.15-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8228,6 +8984,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.14-11183735553/python-3.9.14-linux-24.04-x64.tar.gz"
+      },
+      {
+        "filename": "python-3.9.14-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.14/python-3.9.14-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.14-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.14/python-3.9.14-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8298,6 +9068,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.13-11183687820/python-3.9.13-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.13-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.13/python-3.9.13-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.13-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.13/python-3.9.13-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8368,6 +9152,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.12-11183622568/python-3.9.12-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.12-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.12/python-3.9.12-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.12-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.12/python-3.9.12-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8410,6 +9208,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.11-2018436241/python-3.9.11-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.11-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.11/python-3.9.11-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.11-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.11/python-3.9.11-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8452,6 +9264,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.10-1788162477/python-3.9.10-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.10-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.10/python-3.9.10-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.10-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.10/python-3.9.10-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8494,6 +9320,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.9-119268/python-3.9.9-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.9-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.9/python-3.9.9-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.9-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.9/python-3.9.9-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8536,6 +9376,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.8-118810/python-3.9.8-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.8-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.8/python-3.9.8-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.8-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.8/python-3.9.8-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8578,6 +9432,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.7-1812317133/python-3.9.7-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.7-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.7/python-3.9.7-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.7-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.7/python-3.9.7-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8620,6 +9488,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.6-117960/python-3.9.6-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.6-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.6/python-3.9.6-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.6-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.6/python-3.9.6-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8669,6 +9551,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.5-109482/python-3.9.5-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.5-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.5/python-3.9.5-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.5-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.5/python-3.9.5-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8718,6 +9614,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.4-103698/python-3.9.4-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.4-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.4/python-3.9.4-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.4-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.4/python-3.9.4-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8767,6 +9677,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.3-103669/python-3.9.3-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.3-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.3/python-3.9.3-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.3-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.3/python-3.9.3-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8816,6 +9740,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.2-99799/python-3.9.2-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.2-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.2/python-3.9.2-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.2-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.2/python-3.9.2-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -8914,6 +9852,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.1-96692/python-3.9.1-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.1-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.1/python-3.9.1-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.1-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.1/python-3.9.1-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
@@ -9012,6 +9964,20 @@
         "platform": "win32",
         "platform_version": null,
         "download_url": "https://github.com/actions/python-versions/releases/download/3.9.0-96741/python-3.9.0-win32-x86.zip"
+      },
+      {
+        "filename": "python-3.9.0-linux-24.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "24.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.0/python-3.9.0-linux-24.04-ppc64le.tar.gz"
+      },
+      {
+        "filename": "python-3.9.0-linux-22.04-ppc64le.tar.gz",
+        "arch": "ppc64le",
+        "platform": "linux",
+        "platform_version": "22.04",
+        "download_url": "https://github.com/adilhusain-s/actions-runner-python-versions/releases/download/3.9.0/python-3.9.0-linux-22.04-ppc64le.tar.gz"
       }
     ]
   },
