@@ -136,16 +136,38 @@ jobs:
           # Rebase before pushing to gracefully handle any concurrent pushes from other workflow runs
           # that might have pushed different arch-specific manifests in parallel.
           git pull --rebase
-          max_retries=10
+          # Exponential back-off with jitter for push
+          max_retries=20 # Increased retries for higher concurrency 
+          base_delay=1   # Starting delay in seconds
+          max_delay=90   # Maximum delay in seconds
           count=0
+
           until git push; do
             count=$((count + 1))
             if [ $count -ge $max_retries ]; then
-              echo "Push failed after $max_retries attempts."
+              echo "Push failed after $max_retries attempts. Exiting with failure."
               exit 1
             fi
-            echo "Push failed, attempting to fetch, rebase and retry ($count/$max_retries)..."
+
+            current_delay=$(( base_delay * (2**(count-1)) ))
+            # Cap the delay at max_delay
+            if [ "$current_delay" -gt "$max_delay" ]; then
+                current_delay="$max_delay"
+            fi
+
+            # Add jitter: +/- 25% of the current_delay (but at least 1s)
+            jitter_range=$(( current_delay / 4 ))
+            random_jitter=$(( RANDOM % (2 * jitter_range + 1) - jitter_range ))
+            sleep_duration=$(( current_delay + random_jitter ))
+
+            # Ensure sleep_duration is at least 1 second to avoid hammering the server
+            if [ "$sleep_duration" -lt 1 ]; then
+                sleep_duration=1
+            fi
+            
+            echo "Push attempt failed. Attempting to fetch, rebase, and retry ($count/$max_retries). Waiting ${sleep_duration}s..."
+            # Always rebase against the target branch to incorporate others' distinct commits
             git fetch origin
-            git pull --rebase
-            sleep 1
+            git pull --rebase origin ${{ github.ref_name }} 
+            sleep "$sleep_duration"
           done
