@@ -77,7 +77,7 @@ RUN mkdir -p /usr/local/pwsh && \
     cd "$NET_DIR"/linux-${TARGETARCH} && \
     echo "Listing contents of $(pwd):" && \
     ls -al && \
-    tar -cf - . | (cd /usr/local/pwsh && tar -xf -)
+    cp -r * /usr/local/pwsh/
 
 # Performs a clean Release build and creates the .deb package.
 FROM source AS rebuild
