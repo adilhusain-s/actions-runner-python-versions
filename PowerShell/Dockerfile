@@ -74,7 +74,7 @@ RUN TFM=net$(dotnet --version | cut -d. -f1,2) && \
     pwsh -Command " \
         Set-Location /PowerShell; \
         Import-Module ./build.psm1 -ArgumentList \$true; \
-        Start-PSBuild -UseNuGetOrg; \
+        Start-PSBuild -UseNuGetOrg -Configuration Release; \
         Import-Module ./tools/packaging/packaging.psm1; \
         Start-PSBootstrap -Scenario Package; \
         Start-PSBuild -Clean -PSModuleRestore -Runtime linux-${TARGETARCH} -Configuration Release; \
