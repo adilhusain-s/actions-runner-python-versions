@@ -1,0 +1,8 @@
+d8af288c8 disable analyser for linux-ppc64le  build
+2ec7a4841 bump dotnet sdk version in global.json
+406eae4be fix
+177a7bb8f don't treat warning as error for linux-ppc64le build
+d2857ef6a add support to package deb for ppc64le arch
+0e6ad6189 disable rtr for linux-ppc64le in release mode
+5f22e817a  added 'linux-ppc64le' case to Clear-NativeDependencies switch
+89462154d adding linux-ppc64le in build.psm1
