@@ -50,7 +50,7 @@ index 34d79670f..d28b0627b 100644
  }
 +
 diff --git a/tools/packaging/packaging.psm1 b/tools/packaging/packaging.psm1
-index 52355c1eb..4ad177af6 100644
+index 52355c1eb..57a16ae76 100644
 --- a/tools/packaging/packaging.psm1
 +++ b/tools/packaging/packaging.psm1
 @@ -609,6 +609,15 @@ function Start-PSPackage {
@@ -78,3 +78,57 @@ index 52355c1eb..4ad177af6 100644
                  }
                  foreach ($Distro in $Script:DebianDistributions) {
                      $Arguments["Distribution"] = $Distro
+@@ -1035,7 +1044,7 @@ function New-UnixPackage {
+         # Host architecture values allowed for rpm type packages include: x86_64, aarch64, native, all, noarch, any
+         # Host architecture values allowed for osxpkg type packages include: x86_64, arm64
+         [string]
+-        [ValidateSet("x86_64", "amd64", "aarch64", "arm64", "native", "all", "noarch", "any")]
++        [ValidateSet("x86_64", "amd64", "aarch64", "arm64", "ppc64el", "native", "all", "noarch", "any")]
+         $HostArchitecture,
+ 
+         [Switch]
+@@ -1347,7 +1356,7 @@ function New-MacOsDistributionPackage
+         [System.IO.FileInfo]$FpmPackage,
+ 
+         [Parameter(HelpMessage='x86_64 for Intel or arm64 for Apple Silicon')]
+-        [ValidateSet("x86_64", "arm64")]
++        [ValidateSet("x86_64", "arm64", "ppc64el")]
+         [string] $HostArchitecture = "x86_64",
+ 
+         [Switch] $IsPreview
+@@ -3273,7 +3282,7 @@ function New-MSIPackage
+ 
+         # Architecture to use when creating the MSI
+         [Parameter(Mandatory = $true)]
+-        [ValidateSet("x86", "x64", "arm64")]
++        [ValidateSet("x86", "x64", "arm64", "ppc64el")]
+         [ValidateNotNullOrEmpty()]
+         [string] $ProductTargetArchitecture,
+ 
+@@ -3440,7 +3449,7 @@ function New-ExePackage {
+ 
+         # Architecture to use when creating the MSI
+         [Parameter(Mandatory = $true)]
+-        [ValidateSet("x86", "x64", "arm64")]
++        [ValidateSet("x86", "x64", "arm64", "ppc64el")]
+         [ValidateNotNullOrEmpty()]
+         [string] $ProductTargetArchitecture,
+ 
+@@ -3492,7 +3501,7 @@ function Expand-ExePackageEngine {
+         $EnginePath,
+ 
+         [Parameter(Mandatory = $true)]
+-        [ValidateSet("x86", "x64", "arm64")]
++        [ValidateSet("x86", "x64", "arm64", "ppc64el")]
+         [ValidateNotNullOrEmpty()]
+         [string] $ProductTargetArchitecture
+     )
+@@ -3527,7 +3536,7 @@ function Compress-ExePackageEngine {
+         $EnginePath,
+ 
+         [Parameter(Mandatory = $true)]
+-        [ValidateSet("x86", "x64", "arm64")]
++        [ValidateSet("x86", "x64", "arm64", "ppc64el")]
+         [ValidateNotNullOrEmpty()]
+         [string] $ProductTargetArchitecture
+     )
