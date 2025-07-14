@@ -80,10 +80,10 @@ RUN cd /PowerShell/src/powershell-unix && \
     pwsh -Command " \
         Set-Location /PowerShell; \
         Import-Module ./build.psm1 -ArgumentList \$true; \
-        Start-PSBuild -UseNuGetOrg -Configuration Release; \
         Import-Module ./tools/packaging/packaging.psm1; \
         Start-PSBootstrap -Scenario Package; \
-        Start-PSBuild -Clean -PSModuleRestore -Runtime linux-${TARGETARCH} -Configuration Release; \
+        Start-PSBuild -Clean -PSModuleRestore -Runtime linux-${TARGETARCH} -Configuration Release -UseNuGetOrg; \
+        Start-PSBuild -UseNuGetOrg -Configuration Release; \
         Start-PSPackage -Type deb -Version \"${POWERSHELL_VERSION#v}\" \
     " && \
     DEB_ARCH=$(dpkg --print-architecture) && \
