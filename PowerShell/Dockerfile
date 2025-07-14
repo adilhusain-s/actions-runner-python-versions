@@ -43,7 +43,7 @@ RUN apt-get -qq update && \
 
 COPY --from=native /PowerShell-Native/src/powershell-unix/libpsl-native.so /usr/lib/
 
-COPY patch/powershell-${TARGETARCH}-${POWERSHELL_VERSION}.patch /tmp/powershell.patch
+    COPY patch/powershell-${TARGETARCH}-${POWERSHELL_VERSION}.patch /tmp/powershell.patch
 COPY patch/powershell-gen-${POWERSHELL_VERSION}.tar.gz /tmp/
 COPY update-dotnet-sdk-and-tfm.sh /tmp/
 COPY dotnet-install.py /tmp/
@@ -54,6 +54,7 @@ RUN chmod +x /tmp/update-dotnet-sdk-and-tfm.sh && \
     git checkout tags/${POWERSHELL_VERSION} -b ${TARGETARCH}-${POWERSHELL_VERSION} && \
     SDK_VERSION=$(python3 -c "import json; print(json.load(open('global.json'))['sdk']['version'])") && \
     python3 /tmp/dotnet-install.py --tag $SDK_VERSION && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet && \
     git apply /tmp/powershell.patch && \
     cp /tmp/update-dotnet-sdk-and-tfm.sh . && \
     ./update-dotnet-sdk-and-tfm.sh -g && \
