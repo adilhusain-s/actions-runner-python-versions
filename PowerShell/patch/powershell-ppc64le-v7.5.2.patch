@@ -50,7 +50,7 @@ index 34d79670f..d28b0627b 100644
  }
 +
 diff --git a/tools/packaging/packaging.psm1 b/tools/packaging/packaging.psm1
-index 52355c1eb..4ad177af6 100644
+index 52355c1eb..4fd106d69 100644
 --- a/tools/packaging/packaging.psm1
 +++ b/tools/packaging/packaging.psm1
 @@ -609,6 +609,15 @@ function Start-PSPackage {
@@ -78,3 +78,12 @@ index 52355c1eb..4ad177af6 100644
                  }
                  foreach ($Distro in $Script:DebianDistributions) {
                      $Arguments["Distribution"] = $Distro
+@@ -1035,7 +1044,7 @@ function New-UnixPackage {
+         # Host architecture values allowed for rpm type packages include: x86_64, aarch64, native, all, noarch, any
+         # Host architecture values allowed for osxpkg type packages include: x86_64, arm64
+         [string]
+-        [ValidateSet("x86_64", "amd64", "aarch64", "arm64", "native", "all", "noarch", "any")]
++        [ValidateSet("x86_64", "amd64", "aarch64", "arm64", "ppc64el", "native", "all", "noarch", "any")]
+         $HostArchitecture,
+ 
+         [Switch]
