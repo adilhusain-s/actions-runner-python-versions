@@ -38,7 +38,7 @@ ARG POWERSHELL_VERSION
 ARG TARGETARCH
 
 RUN apt-get -qq update && \
-    apt-get -qq install -y sudo libicu-dev unzip python3 python3-pip && \
+    apt-get -qq install -y sudo libicu-dev unzip python3 python3-pip python3-typer && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=native /PowerShell-Native/src/powershell-unix/libpsl-native.so /usr/lib/
