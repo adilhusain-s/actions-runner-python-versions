@@ -74,6 +74,7 @@ RUN cd /PowerShell/src/powershell-unix && \
       --configuration Release \
       --framework net$(dotnet --version | cut -d. -f1,2) \
       --runtime linux-$(uname -m) && \
+    ln -sf /PowerShell/src/powershell-unix/bin/Release/net*/linux-*/publish/pwsh /usr/bin/pwsh && \
     cd /PowerShell && \
     sed -i '/ValidateSet.*"arm64"/s/"arm64"/"arm64", "ppc64el"/' tools/packaging/packaging.psm1 && \
     pwsh -Command " \
