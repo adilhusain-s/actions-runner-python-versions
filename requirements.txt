@@ -1,0 +1,20 @@
+requests==2.31.0
+typer==0.15.4
+pydantic==2.11.4
+#
+# The following are indirect dependencies (installed automatically):
+# charset-normalizer==3.3.0
+# idna==3.4
+# urllib3==2.0.6
+# certifi==2023.7.22
+# click==8.1.7
+# typing-extensions==4.13.2
+# shellingham==1.5.4
+# rich==14.0.0
+# colorama==0.4.6
+# annotated-types==0.7.0
+# pydantic-core==2.33.2
+# typing-inspection==0.4.1
+# markdown-it-py==3.0.0
+# pygments==2.19.1
+# mdurl==0.1.2
